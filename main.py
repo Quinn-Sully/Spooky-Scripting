@@ -39,39 +39,96 @@ HEIGHT = 600
 brown = (128, 66, 8)
 
 # Important actors and positions
-
-pick_the_holiday_vibe = Actor('pick the holiday vibe')
+pick_the_holiday_vibe = Actor("pick the holiday vibe")
 pick_the_holiday_vibe.pos = 400, 50
 
-halloween_pumpkin = Actor('pumkinsquarepng', (200, 200))
+halloween_pumpkin = Actor("pumkinsquarepng", (200, 200))
 square_hal_pumpkin = Rect((140, 140), (120, 120))
 
-roshhashanah_bottle = Actor('winesquare', (600,200))
+roshhashanah_bottle = Actor("winesquare", (600, 200))
 square_rosh_bottle = Rect((540, 140), (120, 120))
 
-diadelos_skull = Actor('newdiadelossquare', (200, 450))
-square_dia_skull = Rect((140,390), (120, 120))
+diadelos_skull = Actor("newdiadelossquare", (400, 200))
+square_dia_skull = Rect((340, 140), (120, 120))
+
+fall_tree_background = Actor("falltrees", (400, 455))
 
 # This is for fullscreen
 once = False
 
-#This is a setup function I think maybe it might be the main loop also
+current_scene = "setup"
+
+
+# This is the main loop and is called every frame. The current_scene variable dictates
+# what is shown on the screen based on the case.
 def draw():
     global once
     if not once:
         screen.surface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
         once = True
-    screen.fill((252, 174, 28))
-    screen.draw.text('Which holiday are you interested in?', (100, 50), fontsize = 50, color = 'brown')
-    halloween_pumpkin.draw()
-    screen.draw.rect(square_hal_pumpkin, 'brown')
-    roshhashanah_bottle.draw()
-    screen.draw.rect(square_rosh_bottle, 'brown')
-    diadelos_skull.draw()
-    screen.draw.rect(square_dia_skull, 'brown')
-    
+    screen.clear()
+    match current_scene:
+        case "setup":
+            screen.fill((252, 174, 28))
+            screen.draw.text(
+                "Which holiday are you interested in?",
+                (100, 50),
+                fontsize=50,
+                color="brown",
+            )
+            halloween_pumpkin.draw()
+            screen.draw.rect(square_hal_pumpkin, "brown")
+            roshhashanah_bottle.draw()
+            screen.draw.rect(square_rosh_bottle, "brown")
+            diadelos_skull.draw()
+            screen.draw.rect(square_dia_skull, "brown")
+            fall_tree_background.draw()
+        case "halloween":
+            screen.draw.text("halloween", (100, 50), fontsize=50, color="brown")
+        case "rosh":
+            screen.draw.text("rosh", (100, 50), fontsize=50, color="brown")
+        case "dia":
+            screen.draw.text("dia", (100, 50), fontsize=50, color="brown")
+        case "tree_room"
+            screen.draw.text("tree room", (100, 50), fontsize=50, color="brown")
 
 
+def start_halloween():
+    global current_scene
+    current_scene = "halloween"
+
+
+def start_rosh():
+    global current_scene
+    current_scene = "rosh"
+
+
+def start_dia():
+    global current_scene
+    current_scene = "dia"
+
+def enter_tree_room():
+    global current_scene
+    current scene = "tree_room"
+
+
+# this function deals with whenever the mouse is clicked
+def on_mouse_down(pos):
+    print(pos)
+    print(halloween_pumpkin.collidepoint(pos))
+    if halloween_pumpkin.collidepoint(pos):
+        start_halloween()
+    if roshhashanah_bottle.collidepoint(pos):
+        screen.clear()
+        start_rosh()
+    if diadelos_skull.collidepoint(pos):
+        screen.clear()
+        start_dia()
+    if fall_tree_backgroud.collidepoint(pos):
+        enter_tree_room()
+
+
+# this function is called every frame
 def update():
     pass
 
