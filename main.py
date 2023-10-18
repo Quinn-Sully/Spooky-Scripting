@@ -53,8 +53,13 @@ square_dia_skull = Rect((340, 140), (120, 120))
 
 fall_tree_background = Actor("falltrees", (400, 455))
 
+dancing_tree = Actor("dancingtreeres", (300, 225))
+
 # This is for fullscreen
 once = False
+once_treeroom = False
+
+treeside = 0
 
 current_scene = "setup"
 
@@ -63,6 +68,8 @@ current_scene = "setup"
 # what is shown on the screen based on the case.
 def draw():
     global once
+    global once_treeroom
+    global treeside
     if not once:
         screen.surface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
         once = True
@@ -89,8 +96,17 @@ def draw():
             screen.draw.text("rosh", (100, 50), fontsize=50, color="brown")
         case "dia":
             screen.draw.text("dia", (100, 50), fontsize=50, color="brown")
-        case "tree_room"
-            screen.draw.text("tree room", (100, 50), fontsize=50, color="brown")
+        case "tree_room":
+            screen.draw.text(
+                "You have entered the Tree Room", (100, 50), fontsize=50, color="brown"
+            )
+            if not once_treeroom:
+                once_treeroom = True
+                clock.schedule_interval(fliptree, 1.0)
+                if treeside == 0:
+                    dancing_tree.draw()
+                else:
+                    print("else")
 
 
 def start_halloween():
@@ -107,9 +123,24 @@ def start_dia():
     global current_scene
     current_scene = "dia"
 
+
 def enter_tree_room():
     global current_scene
-    current scene = "tree_room"
+    current_scene = "tree_room"
+
+
+def fliptree():
+    global treeside
+    if treeside == 0:
+        print("Draw tree left")
+        screen.draw.text("tree is left", (100, 200), fontsize=50, color="brown")
+        treeside = 1
+    else:
+        screen.draw.text("tree is right", (100, 200), fontsize=50, color="brown")
+        print("draw tree right")
+        treeside = 0
+
+#FIXME make sure tree room works right
 
 
 # this function deals with whenever the mouse is clicked
@@ -124,7 +155,7 @@ def on_mouse_down(pos):
     if diadelos_skull.collidepoint(pos):
         screen.clear()
         start_dia()
-    if fall_tree_backgroud.collidepoint(pos):
+    if fall_tree_background.collidepoint(pos):
         enter_tree_room()
 
 
