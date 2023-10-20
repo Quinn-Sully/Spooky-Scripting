@@ -37,6 +37,10 @@ HEIGHT = 600
 
 # Important colors
 brown = (128, 66, 8)
+pink = (206, 30, 212)
+white = (255, 255, 255)
+black = (0, 0, 0)
+yellow = (237, 223, 24)
 
 # Important actors and positions
 pick_the_holiday_vibe = Actor("pick the holiday vibe")
@@ -53,7 +57,10 @@ square_dia_skull = Rect((340, 140), (120, 120))
 
 fall_tree_background = Actor("falltrees", (400, 455))
 
-dancing_tree = Actor("dancingtreeres", (300, 225))
+dancing_tree = Actor("dancingtreeres", (400, 375))
+dancing_tree_opposite = Actor("dancingtreeresotherway", (400, 375))
+
+back_arrow = Actor("back_arrow", (50, 560))
 
 # This is for fullscreen
 once = False
@@ -77,36 +84,42 @@ def draw():
     match current_scene:
         case "setup":
             screen.fill((252, 174, 28))
-            screen.draw.text(
-                "Which holiday are you interested in?",
-                (100, 50),
-                fontsize=50,
-                color="brown",
-            )
+            screen.draw.text("Which holiday are you interested in?", (100, 50), fontsize=50, color="brown",)
+            screen.draw.text("Halloween", (160, 270), fontsize=25, color="brown",)
             halloween_pumpkin.draw()
             screen.draw.rect(square_hal_pumpkin, "brown")
+            screen.draw.text("Rosh Hashanah", (540, 270), fontsize=25, color="brown",)
             roshhashanah_bottle.draw()
             screen.draw.rect(square_rosh_bottle, "brown")
+            screen.draw.text("Dia De Los Muertos", (320, 270), fontsize=25, color="brown",)
             diadelos_skull.draw()
             screen.draw.rect(square_dia_skull, "brown")
             fall_tree_background.draw()
         case "halloween":
-            screen.draw.text("halloween", (100, 50), fontsize=50, color="brown")
+            screen.fill((255, 144, 0))
+            screen.draw.text("Halloween Music!", (250, 50), fontsize=50, color="yellow")
+            back_arrow.draw()
         case "rosh":
-            screen.draw.text("rosh", (100, 50), fontsize=50, color="brown")
+            screen.fill((237, 223, 24))
+            screen.draw.text("Rosh Hashanah Music!", (210, 50), fontsize=50, color="black")
+            back_arrow.draw()
         case "dia":
-            screen.draw.text("dia", (100, 50), fontsize=50, color="brown")
+            screen.fill((163, 82, 255))
+            screen.draw.text("Dia De Los Muertos Music!", (170, 50), fontsize=50, color="pink")
+            back_arrow.draw()
         case "tree_room":
+            screen.fill((56, 36, 0))
             screen.draw.text(
-                "You have entered the Tree Room", (100, 50), fontsize=50, color="brown"
+                "You have entered the Tree Room", (125, 50), fontsize=50, color="brown"
             )
             if not once_treeroom:
                 once_treeroom = True
-                clock.schedule_interval(fliptree, 1.0)
-                if treeside == 0:
-                    dancing_tree.draw()
-                else:
-                    print("else")
+                clock.schedule_interval(fliptree, 0.7)
+            if treeside == 0:
+                dancing_tree.draw()
+            if treeside == 1:
+                dancing_tree_opposite.draw()
+            back_arrow.draw()
 
 
 def start_halloween():
@@ -127,26 +140,26 @@ def start_dia():
 def enter_tree_room():
     global current_scene
     current_scene = "tree_room"
+    # music.play("treeroom")
 
 
 def fliptree():
     global treeside
     if treeside == 0:
-        print("Draw tree left")
-        screen.draw.text("tree is left", (100, 200), fontsize=50, color="brown")
+        dancing_tree.draw()
         treeside = 1
     else:
-        screen.draw.text("tree is right", (100, 200), fontsize=50, color="brown")
-        print("draw tree right")
+        dancing_tree_opposite.draw()
         treeside = 0
 
-#FIXME make sure tree room works right
+
+def draw_sample_text():
+    screen.draw.text("sample", (150, 50), fontsize=50, color="brown")
 
 
 # this function deals with whenever the mouse is clicked
 def on_mouse_down(pos):
-    print(pos)
-    print(halloween_pumpkin.collidepoint(pos))
+    global current_scene
     if halloween_pumpkin.collidepoint(pos):
         start_halloween()
     if roshhashanah_bottle.collidepoint(pos):
@@ -156,7 +169,11 @@ def on_mouse_down(pos):
         screen.clear()
         start_dia()
     if fall_tree_background.collidepoint(pos):
-        enter_tree_room()
+        if not once_treeroom:
+            enter_tree_room()
+    if back_arrow.collidepoint(pos):
+        if current_scene == "tree_room" or "halloween" or "rosh" or "dia":
+            current_scene = "setup"
 
 
 # this function is called every frame
