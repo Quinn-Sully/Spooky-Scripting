@@ -62,6 +62,14 @@ dancing_tree_opposite = Actor("dancingtreeresotherway", (400, 375))
 
 back_arrow = Actor("back_arrow", (50, 560))
 
+music_frame = Rect((100, 120), (600, 400))
+
+#music template
+# music_rect_template = Rect((100, 120+40x), (600, 40))
+# music_text_template = screen.draw.text("song name", (130, 130+40x), fontsize=30, color="black")
+music_rect = Rect((100, 120), (600, 40))
+another_music_rect = Rect((100, 160), (600, 40))
+
 # This is for fullscreen
 once = False
 once_treeroom = False
@@ -99,14 +107,17 @@ def draw():
             screen.fill((255, 144, 0))
             screen.draw.text("Halloween Music!", (250, 50), fontsize=50, color="yellow")
             back_arrow.draw()
+            halloween_music()
         case "rosh":
             screen.fill((237, 223, 24))
             screen.draw.text("Rosh Hashanah Music!", (210, 50), fontsize=50, color="black")
             back_arrow.draw()
+            screen.draw.rect(music_frame, "brown")
         case "dia":
             screen.fill((163, 82, 255))
             screen.draw.text("Dia De Los Muertos Music!", (170, 50), fontsize=50, color="pink")
             back_arrow.draw()
+            screen.draw.rect(music_frame, "brown")
         case "tree_room":
             screen.fill((56, 36, 0))
             screen.draw.text(
@@ -135,6 +146,64 @@ def start_rosh():
 def start_dia():
     global current_scene
     current_scene = "dia"
+
+
+def halloween_music():
+    scroll = 0 
+    if scroll == 0:
+        song_name_1 = "sn1"
+        song_name_2 = "sn2"
+        song_name_3 = "sn3"
+        song_name_4 = "sn4"
+        song_name_5 = "sn5"
+        song_name_6 = "sn6"
+        song_name_7 = "sn7"
+        song_name_8 = "sn8"
+        song_name_9 = "sn9"
+        song_name_10 = "sn10"
+    screen.draw.rect(music_frame, "brown")
+    halloween_frame_1 = Rect((100, 120), (600, 40))
+    halloween_frame_2 = Rect((100, 160), (600, 40))
+    halloween_frame_3 = Rect((100, 200), (600, 40))
+    halloween_frame_4 = Rect((100, 240), (600, 40))
+    halloween_frame_5 = Rect((100, 280), (600, 40))
+    halloween_frame_6 = Rect((100, 320), (600, 40))
+    halloween_frame_7 = Rect((100, 360), (600, 40))
+    halloween_frame_8 = Rect((100, 400), (600, 40))
+    halloween_frame_9 = Rect((100, 440), (600, 40))
+    halloween_frame_10 = Rect((100, 480), (600, 40))
+    
+    screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_1, "brown")
+
+    screen.draw.text(song_name_2, (130, 170), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_2, "brown")
+
+    screen.draw.text(song_name_3, (130, 210), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_3, "brown")
+
+    screen.draw.text(song_name_4, (130, 250), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_4, "brown")
+
+    screen.draw.text(song_name_5, (130, 290), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_5, "brown")
+
+    screen.draw.text(song_name_6, (130, 330), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_6, "brown")
+
+    screen.draw.text(song_name_7, (130, 370), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_7, "brown")
+
+    screen.draw.text(song_name_8, (130, 410), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_8, "brown")
+
+    screen.draw.text(song_name_9, (130, 450), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_9, "brown")
+
+    screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
+    screen.draw.rect(halloween_frame_10, "brown")
+
+#FIXME include scroll arrows and scrolling functionality next        
 
 
 def enter_tree_room():
