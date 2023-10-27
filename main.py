@@ -97,7 +97,7 @@ play_name_8 = "playlist eight"
 # This is for fullscreen
 once = False
 once_treeroom = False
-
+playlist_currently_open == "none"
 scroll = 0
 
 treeside = 0
@@ -111,6 +111,7 @@ def draw():
     global once
     global once_treeroom
     global treeside
+    global playlist_currently_open
     if not once:
         screen.surface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
         once = True
@@ -134,19 +135,16 @@ def draw():
             screen.draw.text("Halloween Music!", (250, 50), fontsize=50, color="yellow")
             back_arrow.draw()
             draw_lists()
-                                # halloween_music()
         case "rosh":
             screen.fill((237, 223, 24))
             screen.draw.text("Rosh Hashanah Music!", (210, 50), fontsize=50, color="black")
             back_arrow.draw()
             draw_lists()
-                                #rosh_music()
         case "dia":
             screen.fill((163, 82, 255))
             screen.draw.text("Dia De Los Muertos Music!", (170, 50), fontsize=50, color="pink")
             back_arrow.draw()
             draw_lists()
-                                #dia_music()
         case "tree_room":
             screen.fill((56, 36, 0))
             screen.draw.text(
@@ -160,6 +158,98 @@ def draw():
             if treeside == 1:
                 dancing_tree_opposite.draw()
             back_arrow.draw()
+    if playlist_currently_open == "halloween":
+        screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_1, "brown")
+
+        screen.draw.text(song_name_2, (130, 170), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_2, "brown")
+
+        screen.draw.text(song_name_3, (130, 210), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_3, "brown")
+
+        screen.draw.text(song_name_4, (130, 250), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_4, "brown")
+
+        screen.draw.text(song_name_5, (130, 290), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_5, "brown")
+
+        screen.draw.text(song_name_6, (130, 330), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_6, "brown")
+
+        screen.draw.text(song_name_7, (130, 370), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_7, "brown")
+
+        screen.draw.text(song_name_8, (130, 410), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_8, "brown")
+
+        screen.draw.text(song_name_9, (130, 450), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_9, "brown")
+
+        screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_10, "brown")
+
+    if playlist_currently_open == "dia":
+        screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_1, "brown")
+
+        screen.draw.text(song_name_2, (130, 170), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_2, "brown")
+
+        screen.draw.text(song_name_3, (130, 210), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_3, "brown")
+
+        screen.draw.text(song_name_4, (130, 250), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_4, "brown")
+
+        screen.draw.text(song_name_5, (130, 290), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_5, "brown")
+
+        screen.draw.text(song_name_6, (130, 330), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_6, "brown")
+
+        screen.draw.text(song_name_7, (130, 370), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_7, "brown")
+
+        screen.draw.text(song_name_8, (130, 410), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_8, "brown")
+
+        screen.draw.text(song_name_9, (130, 450), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_9, "brown")
+
+        screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
+        screen.draw.rect(dia_frame_10, "brown")
+
+    if playlist_currently_open == "rosh":
+        screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_1, "brown")
+
+        screen.draw.text(song_name_2, (130, 170), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_2, "brown")
+
+        screen.draw.text(song_name_3, (130, 210), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_3, "brown")
+
+        screen.draw.text(song_name_4, (130, 250), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_4, "brown")
+
+        screen.draw.text(song_name_5, (130, 290), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_5, "brown")
+
+        screen.draw.text(song_name_6, (130, 330), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_6, "brown")
+
+        screen.draw.text(song_name_7, (130, 370), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_7, "brown")
+
+        screen.draw.text(song_name_8, (130, 410), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_8, "brown")
+
+        screen.draw.text(song_name_9, (130, 450), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_9, "brown")
+
+        screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
+        screen.draw.rect(rosh_frame_10, "brown")
 
 
 def start_halloween():
@@ -207,40 +297,977 @@ def name_lists():
     global play_name_8
     
     if current_scene == "halloween":
-        play_name_1 = "halloween_1"
-        play_name_2 = "halloween_2"
-        play_name_3 = "halloween_3"
-        play_name_4 = "halloween_4"
-        play_name_5 = "halloween_5"
-        play_name_6 = "halloween_6"
-        play_name_7 = "halloween_7"
-        play_name_8 = "halloween_8"
+        play_name_1 = "Party"
+        play_name_2 = "Spooky"
+        play_name_3 = "Classical"
+        play_name_4 = "Jumpscares"
+        play_name_5 = "Rock and Roll"
+        play_name_6 = "Jazz"
+        play_name_7 = "Classics"
+        play_name_8 = "For Kids"
     
     if current_scene == "dia":
-        play_name_1 = "dia_1"
-        play_name_2 = "dia_2"
-        play_name_3 = "dia_3"
-        play_name_4 = "dia_4"
-        play_name_5 = "dia_5"
+        play_name_1 = "Celebration"
+        play_name_2 = "Coco"
+        play_name_3 = "Classics"
+        play_name_4 = "Party"
+        play_name_5 = "For Kids"
         play_name_6 = "dia_6"
         play_name_7 = "dia_7"
         play_name_8 = "dia_8"
 
     if current_scene == "rosh":
-        play_name_1 = "rosh_1"
-        play_name_2 = "rosh_2"
-        play_name_3 = "rosh_3"
-        play_name_4 = "rosh_4"
-        play_name_5 = "rosh_5"
+        play_name_1 = "Celebration"
+        play_name_2 = "Religious"
+        play_name_3 = "Party"
+        play_name_4 = "For Kids"
+        play_name_5 = "For Kids #2"
         play_name_6 = "rosh_6"
         play_name_7 = "rosh_7"
         play_name_8 = "rosh_8"
 
 
-def open_list(list_name):
+def open_list(list_holiday, playlist_num):
     global max_scroll
     global scroll
     global current_scene
+    global playlist_currently_open
+    global halloween_frame_1
+    global halloween_frame_2
+    global halloween_frame_3
+    global halloween_frame_4
+    global halloween_frame_5
+    global halloween_frame_6
+    global halloween_frame_7
+    global halloween_frame_8
+    global halloween_frame_9
+    global halloween_frame_10
+    global dia_frame_1
+    global dia_frame_2
+    global dia_frame_3
+    global dia_frame_4
+    global dia_frame_5
+    global dia_frame_6
+    global dia_frame_7
+    global dia_frame_8
+    global dia_frame_9
+    global dia_frame_10
+    global rosh_frame_1
+    global rosh_frame_2
+    global rosh_frame_3
+    global rosh_frame_4
+    global rosh_frame_5
+    global rosh_frame_6
+    global rosh_frame_7
+    global rosh_frame_8
+    global rosh_frame_9
+    global rosh_frame_10
+    if list_holiday == "halloween":
+        screen.draw.rect(music_frame, "brown")
+        halloween_frame_1 = Rect((100, 120), (600, 40))
+        halloween_frame_2 = Rect((100, 160), (600, 40))
+        halloween_frame_3 = Rect((100, 200), (600, 40))
+        halloween_frame_4 = Rect((100, 240), (600, 40))
+        halloween_frame_5 = Rect((100, 280), (600, 40))
+        halloween_frame_6 = Rect((100, 320), (600, 40))
+        halloween_frame_7 = Rect((100, 360), (600, 40))
+        halloween_frame_8 = Rect((100, 400), (600, 40))
+        halloween_frame_9 = Rect((100, 440), (600, 40))
+        halloween_frame_10 = Rect((100, 480), (600, 40))
+        if playlist_num == 1:
+            if scroll == 0:
+                load_songs("halloween", 1, 0)
+            if scroll == 1:
+                load_songs("halloween", 1, 1)
+            if scroll == 2:
+                load_songs("halloween", 1, 2)
+        if playlist_num == 2:
+            if scroll == 0:
+                load_songs("halloween", 2, 0)
+            if scroll == 1:
+                load_songs("halloween", 2, 1)
+            if scroll == 2:
+                load_songs("halloween", 2, 2)
+        if playlist_num == 3:
+            if scroll == 0:
+                load_songs("halloween", 3, 0)
+            if scroll == 1:
+                load_songs("halloween", 3, 1)
+            if scroll == 2:
+                load_songs("halloween", 3, 2)
+        if playlist_num == 4:
+            if scroll == 0:
+                load_songs("halloween", 4, 0)
+            if scroll == 1:
+                load_songs("halloween", 4, 1)
+            if scroll == 2:
+                load_songs("halloween", 4, 2)
+        if playlist_num == 5:
+            if scroll == 0:
+                load_songs("halloween", 5, 0)
+            if scroll == 1:
+                load_songs("halloween", 5, 1)
+            if scroll == 2:
+                load_songs("halloween", 5, 2)
+        if playlist_num == 6:
+            if scroll == 0:
+                load_songs("halloween", 6, 0)
+            if scroll == 1:
+                load_songs("halloween", 6, 1)
+            if scroll == 2:
+                load_songs("halloween", 6, 2)
+        if playlist_num == 7:
+            if scroll == 0:
+                load_songs("halloween", 7, 0)
+            if scroll == 1:
+                load_songs("halloween", 7, 1)
+            if scroll == 2:
+                load_songs("halloween", 7, 2)
+        if playlist_num == 8:
+            if scroll == 0:
+                load_songs("halloween", 8, 0)
+            if scroll == 1:
+                load_songs("halloween", 8, 1)
+            if scroll == 2:
+                load_songs("halloween", 8, 2)
+                
+        playlist_currently_open = "halloween"
+        screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_1, "brown")
+
+        screen.draw.text(song_name_2, (130, 170), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_2, "brown")
+
+        screen.draw.text(song_name_3, (130, 210), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_3, "brown")
+
+        screen.draw.text(song_name_4, (130, 250), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_4, "brown")
+
+        screen.draw.text(song_name_5, (130, 290), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_5, "brown")
+
+        screen.draw.text(song_name_6, (130, 330), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_6, "brown")
+
+        screen.draw.text(song_name_7, (130, 370), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_7, "brown")
+
+        screen.draw.text(song_name_8, (130, 410), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_8, "brown")
+
+        screen.draw.text(song_name_9, (130, 450), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_9, "brown")
+
+        screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
+        screen.draw.rect(halloween_frame_10, "brown")
+
+    if list_holiday == "dia":
+        if playlist_num == 1:
+            if scroll == 0:
+                load_songs("dia", 1, 0)
+            if scroll == 1:
+                load_songs("dia", 1, 1)
+            if scroll == 2:
+                load_songs("dia", 1, 2)
+        if playlist_num == 2:
+            if scroll == 0:
+                load_songs("dia", 2, 0)
+            if scroll == 1:
+                load_songs("dia", 2, 1)
+            if scroll == 2:
+                load_songs("dia", 2, 2)
+        if playlist_num == 3:
+            if scroll == 0:
+                load_songs("dia", 3, 0)
+            if scroll == 1:
+                load_songs("dia", 3, 1)
+            if scroll == 2:
+                load_songs("dia", 3, 2)
+        if playlist_num == 4:
+            if scroll == 0:
+                load_songs("dia", 4, 0)
+            if scroll == 1:
+                load_songs("dia", 4, 1)
+            if scroll == 2:
+                load_songs("dia", 4, 2)
+        if playlist_num == 5:
+            if scroll == 0:
+                load_songs("dia", 5, 0)
+            if scroll == 1:
+                load_songs("dia", 5, 1)
+            if scroll == 2:
+                load_songs("dia", 5, 2)
+        if playlist_num == 6:
+            if scroll == 0:
+                load_songs("dia", 6, 0)
+            if scroll == 1:
+                load_songs("dia", 6, 1)
+            if scroll == 2:
+                load_songs("dia", 6, 2)
+        if playlist_num == 7:
+            if scroll == 0:
+                load_songs("dia", 7, 0)
+            if scroll == 1:
+                load_songs("dia", 7, 1)
+            if scroll == 2:
+                load_songs("dia", 7, 2)
+        if playlist_num == 8:
+            if scroll == 0:
+                load_songs("dia", 8, 0)
+            if scroll == 1:
+                load_songs("dia", 8, 1)
+            if scroll == 2:
+                load_songs("dia", 8, 2)
+        playlist_currently_open == "dia"
+    screen.draw.rect(music_frame, "yellow")
+    dia_frame_1 = Rect((100, 120), (600, 40))
+    dia_frame_2 = Rect((100, 160), (600, 40))
+    dia_frame_3 = Rect((100, 200), (600, 40))
+    dia_frame_4 = Rect((100, 240), (600, 40))
+    dia_frame_5 = Rect((100, 280), (600, 40))
+    dia_frame_6 = Rect((100, 320), (600, 40))
+    dia_frame_7 = Rect((100, 360), (600, 40))
+    dia_frame_8 = Rect((100, 400), (600, 40))
+    dia_frame_9 = Rect((100, 440), (600, 40))
+    dia_frame_10 = Rect((100, 480), (600, 40))
+    
+        
+    
+    if list_holiday == "rosh":
+        if playlist_num == 1:
+            if scroll == 0:
+                load_songs("rosh", 1, 0)
+            if scroll == 1:
+                load_songs("rosh", 1, 1)
+            if scroll == 2:
+                load_songs("rosh", 1, 2)
+        if playlist_num == 2:
+            if scroll == 0:
+                load_songs("rosh", 2, 0)
+            if scroll == 1:
+                load_songs("rosh", 2, 1)
+            if scroll == 2:
+                load_songs("rosh", 2, 2)
+        if playlist_num == 3:
+            if scroll == 0:
+                load_songs("rosh", 3, 0)
+            if scroll == 1:
+                load_songs("rosh", 3, 1)
+            if scroll == 2:
+                load_songs("rosh", 3, 2)
+        if playlist_num == 4:
+            if scroll == 0:
+                load_songs("rosh", 4, 0)
+            if scroll == 1:
+                load_songs("rosh", 4, 1)
+            if scroll == 2:
+                load_songs("rosh", 4, 2)
+        if playlist_num == 5:
+            if scroll == 0:
+                load_songs("rosh", 5, 0)
+            if scroll == 1:
+                load_songs("rosh", 5, 1)
+            if scroll == 2:
+                load_songs("rosh", 5, 2)
+        if playlist_num == 6:
+            if scroll == 0:
+                load_songs("rosh", 6, 0)
+            if scroll == 1:
+                load_songs("rosh", 6, 1)
+            if scroll == 2:
+                load_songs("rosh", 6, 2)
+        if playlist_num == 7:
+            if scroll == 0:
+                load_songs("rosh", 7, 0)
+            if scroll == 1:
+                load_songs("rosh", 7, 1)
+            if scroll == 2:
+                load_songs("rosh", 7, 2)
+        if playlist_num == 8:
+            if scroll == 0:
+                load_songs("rosh", 8, 0)
+            if scroll == 1:
+                load_songs("rosh", 8, 1)
+            if scroll == 2:
+                load_songs("rosh", 8, 2)
+        playlist_currently_open == "rosh"
+        screen.draw.rect(music_frame, "brown")
+        rosh_frame_1 = Rect((100, 120), (600, 40))
+        rosh_frame_2 = Rect((100, 160), (600, 40))
+        rosh_frame_3 = Rect((100, 200), (600, 40))
+        rosh_frame_4 = Rect((100, 240), (600, 40))
+        rosh_frame_5 = Rect((100, 280), (600, 40))
+        rosh_frame_6 = Rect((100, 320), (600, 40))
+        rosh_frame_7 = Rect((100, 360), (600, 40))
+        rosh_frame_8 = Rect((100, 400), (600, 40))
+        rosh_frame_9 = Rect((100, 440), (600, 40))
+        rosh_frame_10 = Rect((100, 480), (600, 40))
+    
+        
+
+def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
+    global song_name_1
+    global song_name_2
+    global song_name_3
+    global song_name_4
+    global song_name_5
+    global song_name_6
+    global song_name_7
+    global song_name_8
+    global song_name_9
+    global song_name_10
+    if ls_holiday == "halloween":
+        if ls_playlist_num == 1:
+            if ls_scroll == 0:
+                song_name_1 = "halloween, list_1, sn1"
+                song_name_2 = "halloween, list_1, sn2"
+                song_name_3 = "halloween, list_1, sn3"
+                song_name_4 = "halloween, list_1, sn4"
+                song_name_5 = "halloween, list_1, sn5"
+                song_name_6 = "halloween, list_1, sn6"
+                song_name_7 = "halloween, list_1, sn7"
+                song_name_8 = "halloween, list_1, sn8"
+                song_name_9 = "halloween, list_1, sn9"
+                song_name_10 = "halloween, list_1, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "halloween, list_1, sn11"
+                song_name_2 = "halloween, list_1, sn12"
+                song_name_3 = "halloween, list_1, sn13"
+                song_name_4 = "halloween, list_1, sn14"
+                song_name_5 = "halloween, list_1, sn15"
+                song_name_6 = "halloween, list_1, sn16"
+                song_name_7 = "halloween, list_1, sn17"
+                song_name_8 = "halloween, list_1, sn18"
+                song_name_9 = "halloween, list_1, sn19"
+                song_name_10 = "halloween, list_1, sn20"
+            if ls_scroll == 2:
+                song_name_1 = "halloween, list_1, sn21"
+                song_name_2 = "halloween, list_1, sn22"
+                song_name_3 = "halloween, list_1, sn23"
+                song_name_4 = "halloween, list_1, sn24"
+                song_name_5 = "halloween, list_1, sn25"
+                song_name_6 = "halloween, list_1, sn26"
+                song_name_7 = "halloween, list_1, sn27"
+                song_name_8 = "halloween, list_1, sn28"
+                song_name_9 = "halloween, list_1, sn29"
+                song_name_10 = "halloween, list_1, sn30"
+        
+        if ls_playlist_num == 2:
+            if ls_scroll == 0:
+                song_name_1 = "halloween, list_2, sn1"
+                song_name_2 = "halloween, list_2, sn2"
+                song_name_3 = "halloween, list_2, sn3"
+                song_name_4 = "halloween, list_2, sn4"
+                song_name_5 = "halloween, list_2, sn5"
+                song_name_6 = "halloween, list_2, sn6"
+                song_name_7 = "halloween, list_2, sn7"
+                song_name_8 = "halloween, list_2, sn8"
+                song_name_9 = "halloween, list_2, sn9"
+                song_name_10 = "halloween, list_2, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "halloween, list_2, sn11"
+                song_name_2 = "halloween, list_2, sn12"
+                song_name_3 = "halloween, list_2, sn13"
+                song_name_4 = "halloween, list_2, sn14"
+                song_name_5 = "halloween, list_2, sn15"
+                song_name_6 = "halloween, list_2, sn16"
+                song_name_7 = "halloween, list_2, sn17"
+                song_name_8 = "halloween, list_2, sn18"
+                song_name_9 = "halloween, list_2, sn19"
+                song_name_10 = "halloween, list_2, sn20"
+            if ls_scroll == 2:
+                song_name_1 = "halloween, list_2, sn21"
+                song_name_2 = "halloween, list_2, sn22"
+                song_name_3 = "halloween, list_2, sn23"
+                song_name_4 = "halloween, list_2, sn24"
+                song_name_5 = "halloween, list_2, sn25"
+                song_name_6 = "halloween, list_2, sn26"
+                song_name_7 = "halloween, list_2, sn27"
+                song_name_8 = "halloween, list_2, sn28"
+                song_name_9 = "halloween, list_2, sn29"
+                song_name_10 = "halloween, list_2, sn30"
+        
+        if ls_playlist_num == 3:
+            if ls_scroll == 0:
+                song_name_1 = "halloween, list_3, sn1"
+                song_name_2 = "halloween, list_3, sn2"
+                song_name_3 = "halloween, list_3, sn3"
+                song_name_4 = "halloween, list_3, sn4"
+                song_name_5 = "halloween, list_3, sn5"
+                song_name_6 = "halloween, list_3, sn6"
+                song_name_7 = "halloween, list_3, sn7"
+                song_name_8 = "halloween, list_3, sn8"
+                song_name_9 = "halloween, list_3, sn9"
+                song_name_10 = "halloween, list_3, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "halloween, list_3, sn11"
+                song_name_2 = "halloween, list_3, sn12"
+                song_name_3 = "halloween, list_3, sn13"
+                song_name_4 = "halloween, list_3, sn14"
+                song_name_5 = "halloween, list_3, sn15"
+                song_name_6 = "halloween, list_3, sn16"
+                song_name_7 = "halloween, list_3, sn17"
+                song_name_8 = "halloween, list_3, sn18"
+                song_name_9 = "halloween, list_3, sn19"
+                song_name_10 = "halloween, list_3, sn20"
+            if ls_scroll == 2:
+                song_name_1 = "halloween, list_3, sn21"
+                song_name_2 = "halloween, list_3, sn22"
+                song_name_3 = "halloween, list_3, sn23"
+                song_name_4 = "halloween, list_3, sn24"
+                song_name_5 = "halloween, list_3, sn25"
+                song_name_6 = "halloween, list_3, sn26"
+                song_name_7 = "halloween, list_3, sn27"
+                song_name_8 = "halloween, list_3, sn28"
+                song_name_9 = "halloween, list_3, sn29"
+                song_name_10 = "halloween, list_3, sn30"
+        
+        if ls_playlist_num == 4:
+            if ls_scroll == 0:
+                song_name_1 = "halloween, list_4, sn1"
+                song_name_2 = "halloween, list_4, sn2"
+                song_name_3 = "halloween, list_4, sn3"
+                song_name_4 = "halloween, list_4, sn4"
+                song_name_5 = "halloween, list_4, sn5"
+                song_name_6 = "halloween, list_4, sn6"
+                song_name_7 = "halloween, list_4, sn7"
+                song_name_8 = "halloween, list_4, sn8"
+                song_name_9 = "halloween, list_4, sn9"
+                song_name_10 = "halloween, list_4, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "halloween, list_4, sn11"
+                song_name_2 = "halloween, list_4, sn12"
+                song_name_3 = "halloween, list_4, sn13"
+                song_name_4 = "halloween, list_4, sn14"
+                song_name_5 = "halloween, list_4, sn15"
+                song_name_6 = "halloween, list_4, sn16"
+                song_name_7 = "halloween, list_4, sn17"
+                song_name_8 = "halloween, list_4, sn18"
+                song_name_9 = "halloween, list_4, sn19"
+                song_name_10 = "halloween, list_4, sn20"
+            if ls_scroll == 2:
+                song_name_1 = "halloween, list_4, sn21"
+                song_name_2 = "halloween, list_4, sn22"
+                song_name_3 = "halloween, list_4, sn23"
+                song_name_4 = "halloween, list_4, sn24"
+                song_name_5 = "halloween, list_4, sn25"
+                song_name_6 = "halloween, list_4, sn26"
+                song_name_7 = "halloween, list_4, sn27"
+                song_name_8 = "halloween, list_4, sn28"
+                song_name_9 = "halloween, list_4, sn29"
+                song_name_10 = "halloween, list_4, sn30"
+        
+        if ls_playlist_num == 5:
+            if ls_scroll == 0:
+                song_name_1 = "halloween, list_5, sn1"
+                song_name_2 = "halloween, list_5, sn2"
+                song_name_3 = "halloween, list_5, sn3"
+                song_name_4 = "halloween, list_5, sn4"
+                song_name_5 = "halloween, list_5, sn5"
+                song_name_6 = "halloween, list_5, sn6"
+                song_name_7 = "halloween, list_5, sn7"
+                song_name_8 = "halloween, list_5, sn8"
+                song_name_9 = "halloween, list_5, sn9"
+                song_name_10 = "halloween, list_5, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "halloween, list_5, sn11"
+                song_name_2 = "halloween, list_5, sn12"
+                song_name_3 = "halloween, list_5, sn13"
+                song_name_4 = "halloween, list_5, sn14"
+                song_name_5 = "halloween, list_5, sn15"
+                song_name_6 = "halloween, list_5, sn16"
+                song_name_7 = "halloween, list_5, sn17"
+                song_name_8 = "halloween, list_5, sn18"
+                song_name_9 = "halloween, list_5, sn19"
+                song_name_10 = "halloween, list_5, sn20"
+            if ls_scroll == 2:
+                song_name_1 = "halloween, list_5, sn21"
+                song_name_2 = "halloween, list_5, sn22"
+                song_name_3 = "halloween, list_5, sn23"
+                song_name_4 = "halloween, list_5, sn24"
+                song_name_5 = "halloween, list_5, sn25"
+                song_name_6 = "halloween, list_5, sn26"
+                song_name_7 = "halloween, list_5, sn27"
+                song_name_8 = "halloween, list_5, sn28"
+                song_name_9 = "halloween, list_5, sn29"
+                song_name_10 = "halloween, list_5, sn20"
+    
+        if ls_playlist_num == 6:
+            if ls_scroll == 0:
+                song_name_1 = "halloween, list_6, sn1"
+                song_name_2 = "halloween, list_6, sn2"
+                song_name_3 = "halloween, list_6, sn3"
+                song_name_4 = "halloween, list_6, sn4"
+                song_name_5 = "halloween, list_6, sn5"
+                song_name_6 = "halloween, list_6, sn6"
+                song_name_7 = "halloween, list_6, sn7"
+                song_name_8 = "halloween, list_6, sn8"
+                song_name_9 = "halloween, list_6, sn9"
+                song_name_10 = "halloween, list_6, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "halloween, list_6, sn11"
+                song_name_2 = "halloween, list_6, sn12"
+                song_name_3 = "halloween, list_6, sn13"
+                song_name_4 = "halloween, list_6, sn14"
+                song_name_5 = "halloween, list_6, sn15"
+                song_name_6 = "halloween, list_6, sn16"
+                song_name_7 = "halloween, list_6, sn17"
+                song_name_8 = "halloween, list_6, sn18"
+                song_name_9 = "halloween, list_6, sn19"
+                song_name_10 = "halloween, list_6, sn20"
+            if ls_scroll == 2:
+                song_name_1 = "halloween, list_6, sn21"
+                song_name_2 = "halloween, list_6, sn22"
+                song_name_3 = "halloween, list_6, sn23"
+                song_name_4 = "halloween, list_6, sn24"
+                song_name_5 = "halloween, list_6, sn25"
+                song_name_6 = "halloween, list_6, sn26"
+                song_name_7 = "halloween, list_6, sn27"
+                song_name_8 = "halloween, list_6, sn28"
+                song_name_9 = "halloween, list_6, sn29"
+                song_name_10 = "halloween, list_6, sn30"
+        
+        if ls_playlist_num == 7:
+            if ls_scroll == 0:
+                song_name_1 = "halloween, list_7, sn1"
+                song_name_2 = "halloween, list_7, sn2"
+                song_name_3 = "halloween, list_7, sn3"
+                song_name_4 = "halloween, list_7, sn4"
+                song_name_5 = "halloween, list_7, sn5"
+                song_name_6 = "halloween, list_7, sn6"
+                song_name_7 = "halloween, list_7, sn7"
+                song_name_8 = "halloween, list_7, sn8"
+                song_name_9 = "halloween, list_7, sn9"
+                song_name_10 = "halloween, list_7, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "halloween, list_7, sn11"
+                song_name_2 = "halloween, list_7, sn12"
+                song_name_3 = "halloween, list_7, sn13"
+                song_name_4 = "halloween, list_7, sn14"
+                song_name_5 = "halloween, list_7, sn15"
+                song_name_6 = "halloween, list_7, sn16"
+                song_name_7 = "halloween, list_7, sn17"
+                song_name_8 = "halloween, list_7, sn18"
+                song_name_9 = "halloween, list_7, sn19"
+                song_name_10 = "halloween, list_7, sn20"
+            if ls_scroll == 2:
+                song_name_1 = "halloween, list_7, sn21"
+                song_name_2 = "halloween, list_7, sn22"
+                song_name_3 = "halloween, list_7, sn23"
+                song_name_4 = "halloween, list_7, sn24"
+                song_name_5 = "halloween, list_7, sn25"
+                song_name_6 = "halloween, list_7, sn26"
+                song_name_7 = "halloween, list_7, sn27"
+                song_name_8 = "halloween, list_7, sn28"
+                song_name_9 = "halloween, list_7, sn29"
+                song_name_10 = "halloween, list_7, sn30"
+        
+        if ls_playlist_num == 8:
+            if ls_scroll == 0:
+                song_name_1 = "halloween, list_8, sn1"
+                song_name_2 = "halloween, list_8, sn2"
+                song_name_3 = "halloween, list_8, sn3"
+                song_name_4 = "halloween, list_8, sn4"
+                song_name_5 = "halloween, list_8, sn5"
+                song_name_6 = "halloween, list_8, sn6"
+                song_name_7 = "halloween, list_8, sn7"
+                song_name_8 = "halloween, list_8, sn8"
+                song_name_9 = "halloween, list_8, sn9"
+                song_name_10 = "halloween, list_8, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "halloween, list_8, sn11"
+                song_name_2 = "halloween, list_8, sn12"
+                song_name_3 = "halloween, list_8, sn13"
+                song_name_4 = "halloween, list_8, sn14"
+                song_name_5 = "halloween, list_8, sn15"
+                song_name_6 = "halloween, list_8, sn16"
+                song_name_7 = "halloween, list_8, sn17"
+                song_name_8 = "halloween, list_8, sn18"
+                song_name_9 = "halloween, list_8, sn19"
+                song_name_10 = "halloween, list_8, sn20"
+            if ls_scroll == 2:
+                song_name_1 = "halloween, list_8, sn21"
+                song_name_2 = "halloween, list_8, sn22"
+                song_name_3 = "halloween, list_8, sn23"
+                song_name_4 = "halloween, list_8, sn24"
+                song_name_5 = "halloween, list_8, sn25"
+                song_name_6 = "halloween, list_8, sn26"
+                song_name_7 = "halloween, list_8, sn27"
+                song_name_8 = "halloween, list_8, sn28"
+                song_name_9 = "halloween, list_8, sn29"
+                song_name_10 = "halloween, list_8, sn30"
+    if ls_holiday == "dia":
+        if ls_playlist_num == 1:
+            if ls_scroll == 0:
+                song_name_1 = "dia, list_1, sn1"
+                song_name_2 = "dia, list_1, sn2"
+                song_name_3 = "dia, list_1, sn3"
+                song_name_4 = "dia, list_1, sn4"
+                song_name_5 = "dia, list_1, sn5"
+                song_name_6 = "dia, list_1, sn6"
+                song_name_7 = "dia, list_1, sn7"
+                song_name_8 = "dia, list_1, sn8"
+                song_name_9 = "dia, list_1, sn9"
+                song_name_10 = "dia, list_1, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "dia, list_1, sn11"
+                song_name_2 = "dia, list_1, sn12"
+                song_name_3 = "dia, list_1, sn13"
+                song_name_4 = "dia, list_1, sn14"
+                song_name_5 = "dia, list_1, sn15"
+                song_name_6 = "dia, list_1, sn16"
+                song_name_7 = "dia, list_1, sn17"
+                song_name_8 = "dia, list_1, sn18"
+                song_name_9 = "dia, list_1, sn19"
+                song_name_10 = "dia, list_1, sn20"
+        if ls_playlist_num == 2:
+            if ls_scroll == 0:
+                song_name_1 = "dia, list_2, sn1"
+                song_name_2 = "dia, list_2, sn2"
+                song_name_3 = "dia, list_2, sn3"
+                song_name_4 = "dia, list_2, sn4"
+                song_name_5 = "dia, list_2, sn5"
+                song_name_6 = "dia, list_2, sn6"
+                song_name_7 = "dia, list_2, sn7"
+                song_name_8 = "dia, list_2, sn8"
+                song_name_9 = "dia, list_2, sn9"
+                song_name_10 = "dia, list_2, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "dia, list_2, sn11"
+                song_name_2 = "dia, list_2, sn12"
+                song_name_3 = "dia, list_2, sn13"
+                song_name_4 = "dia, list_2, sn14"
+                song_name_5 = "dia, list_2, sn15"
+                song_name_6 = "dia, list_2, sn16"
+                song_name_7 = "dia, list_2, sn17"
+                song_name_8 = "dia, list_2, sn18"
+                song_name_9 = "dia, list_2, sn19"
+                song_name_10 = "dia, list_2, sn20"
+        if ls_playlist_num == 3:
+            if ls_scroll == 0:
+                song_name_1 = "dia, list_3, sn1"
+                song_name_2 = "dia, list_3, sn2"
+                song_name_3 = "dia, list_3, sn3"
+                song_name_4 = "dia, list_3, sn4"
+                song_name_5 = "dia, list_3, sn5"
+                song_name_6 = "dia, list_3, sn6"
+                song_name_7 = "dia, list_3, sn7"
+                song_name_8 = "dia, list_3, sn8"
+                song_name_9 = "dia, list_3, sn9"
+                song_name_10 = "dia, list_3, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "dia, list_3, sn11"
+                song_name_2 = "dia, list_3, sn12"
+                song_name_3 = "dia, list_3, sn13"
+                song_name_4 = "dia, list_3, sn14"
+                song_name_5 = "dia, list_3, sn15"
+                song_name_6 = "dia, list_3, sn16"
+                song_name_7 = "dia, list_3, sn17"
+                song_name_8 = "dia, list_3, sn18"
+                song_name_9 = "dia, list_3, sn19"
+                song_name_10 = "dia, list_3, sn20"
+        if ls_playlist_num == 4:
+            if ls_scroll == 0:
+                song_name_1 = "dia, list_4, sn1"
+                song_name_2 = "dia, list_4, sn2"
+                song_name_3 = "dia, list_4, sn3"
+                song_name_4 = "dia, list_4, sn4"
+                song_name_5 = "dia, list_4, sn5"
+                song_name_6 = "dia, list_4, sn6"
+                song_name_7 = "dia, list_4, sn7"
+                song_name_8 = "dia, list_4, sn8"
+                song_name_9 = "dia, list_4, sn9"
+                song_name_10 = "dia, list_4, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "dia, list_4, sn11"
+                song_name_2 = "dia, list_4, sn12"
+                song_name_3 = "dia, list_4, sn13"
+                song_name_4 = "dia, list_4, sn14"
+                song_name_5 = "dia, list_4, sn15"
+                song_name_6 = "dia, list_4, sn16"
+                song_name_7 = "dia, list_4, sn17"
+                song_name_8 = "dia, list_4, sn18"
+                song_name_9 = "dia, list_4, sn19"
+                song_name_10 = "dia, list_4, sn20"
+        if ls_playlist_num == 5:
+            if ls_scroll == 0:
+                song_name_1 = "dia, list_5, sn1"
+                song_name_2 = "dia, list_5, sn2"
+                song_name_3 = "dia, list_5, sn3"
+                song_name_4 = "dia, list_5, sn4"
+                song_name_5 = "dia, list_5, sn5"
+                song_name_6 = "dia, list_5, sn6"
+                song_name_7 = "dia, list_5, sn7"
+                song_name_8 = "dia, list_5, sn8"
+                song_name_9 = "dia, list_5, sn9"
+                song_name_10 = "dia, list_5, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "dia, list_5, sn11"
+                song_name_2 = "dia, list_5, sn12"
+                song_name_3 = "dia, list_5, sn13"
+                song_name_4 = "dia, list_5, sn14"
+                song_name_5 = "dia, list_5, sn15"
+                song_name_6 = "dia, list_5, sn16"
+                song_name_7 = "dia, list_5, sn17"
+                song_name_8 = "dia, list_5, sn18"
+                song_name_9 = "dia, list_5, sn19"
+                song_name_10 = "dia, list_5, sn20"
+        if ls_playlist_num == 6:
+            if ls_scroll == 0:
+                song_name_1 = "dia, list_6, sn1"
+                song_name_2 = "dia, list_6, sn2"
+                song_name_3 = "dia, list_6, sn3"
+                song_name_4 = "dia, list_6, sn4"
+                song_name_5 = "dia, list_6, sn5"
+                song_name_6 = "dia, list_6, sn6"
+                song_name_7 = "dia, list_6, sn7"
+                song_name_8 = "dia, list_6, sn8"
+                song_name_9 = "dia, list_6, sn9"
+                song_name_10 = "dia, list_6, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "dia, list_6, sn11"
+                song_name_2 = "dia, list_6, sn12"
+                song_name_3 = "dia, list_6, sn13"
+                song_name_4 = "dia, list_6, sn14"
+                song_name_5 = "dia, list_6, sn15"
+                song_name_6 = "dia, list_6, sn16"
+                song_name_7 = "dia, list_6, sn17"
+                song_name_8 = "dia, list_6, sn18"
+                song_name_9 = "dia, list_6, sn19"
+                song_name_10 = "dia, list_6, sn20"
+        if ls_playlist_num == 7:
+            if ls_scroll == 0:
+                song_name_1 = "dia, list_7, sn1"
+                song_name_2 = "dia, list_7, sn2"
+                song_name_3 = "dia, list_7, sn3"
+                song_name_4 = "dia, list_7, sn4"
+                song_name_5 = "dia, list_7, sn5"
+                song_name_6 = "dia, list_7, sn6"
+                song_name_7 = "dia, list_7, sn7"
+                song_name_8 = "dia, list_7, sn8"
+                song_name_9 = "dia, list_7, sn9"
+                song_name_10 = "dia, list_7, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "dia, list_7, sn11"
+                song_name_2 = "dia, list_7, sn12"
+                song_name_3 = "dia, list_7, sn13"
+                song_name_4 = "dia, list_7, sn14"
+                song_name_5 = "dia, list_7, sn15"
+                song_name_6 = "dia, list_7, sn16"
+                song_name_7 = "dia, list_7, sn17"
+                song_name_8 = "dia, list_7, sn18"
+                song_name_9 = "dia, list_7, sn19"
+                song_name_10 = "dia, list_7, sn20"
+        if ls_playlist_num == 8:
+            if ls_scroll == 0:
+                song_name_1 = "dia, list_8, sn1"
+                song_name_2 = "dia, list_8, sn2"
+                song_name_3 = "dia, list_8, sn3"
+                song_name_4 = "dia, list_8, sn4"
+                song_name_5 = "dia, list_8, sn5"
+                song_name_6 = "dia, list_8, sn6"
+                song_name_7 = "dia, list_8, sn7"
+                song_name_8 = "dia, list_8, sn8"
+                song_name_9 = "dia, list_8, sn9"
+                song_name_10 = "dia, list_8, sn10"
+            if ls_scroll == 1:
+                song_name_1 = "dia, list_8, sn11"
+                song_name_2 = "dia, list_8, sn12"
+                song_name_3 = "dia, list_8, sn13"
+                song_name_4 = "dia, list_8, sn14"
+                song_name_5 = "dia, list_8, sn15"
+                song_name_6 = "dia, list_8, sn16"
+                song_name_7 = "dia, list_8, sn17"
+                song_name_8 = "dia, list_8, sn18"
+                song_name_9 = "dia, list_8, sn19"
+                song_name_10 = "dia, list_8, sn20"
+    if ls_holiday == "rosh":
+        if ls_playlist_num == 1:
+            if scroll == 0:
+                song_name_1 = "rosh, list_1, sn1"
+                song_name_2 = "rosh, list_1, sn2"
+                song_name_3 = "rosh, list_1, sn3"
+                song_name_4 = "rosh, list_1, sn4"
+                song_name_5 = "rosh, list_1, sn5"
+                song_name_6 = "rosh, list_1, sn6"
+                song_name_7 = "rosh, list_1, sn7"
+                song_name_8 = "rosh, list_1, sn8"
+                song_name_9 = "rosh, list_1, sn9"
+                song_name_10 = "rosh, list_1, sn10"
+            if scroll == 1:
+                song_name_1 = "rosh, list_1, sn11"
+                song_name_2 = "rosh, list_1, sn12"
+                song_name_3 = "rosh, list_1, sn13"
+                song_name_4 = "rosh, list_1, sn14"
+                song_name_5 = "rosh, list_1, sn15"
+                song_name_6 = "rosh, list_1, sn16"
+                song_name_7 = "rosh, list_1, sn17"
+                song_name_8 = "rosh, list_1, sn18"
+                song_name_9 = "rosh, list_1, sn19"
+                song_name_10 = "rosh, list_1, sn20"
+        if ls_playlist_num == 2:
+            if scroll == 0:
+                song_name_1 = "rosh, list_2, sn1"
+                song_name_2 = "rosh, list_2, sn2"
+                song_name_3 = "rosh, list_2, sn3"
+                song_name_4 = "rosh, list_2, sn4"
+                song_name_5 = "rosh, list_2, sn5"
+                song_name_6 = "rosh, list_2, sn6"
+                song_name_7 = "rosh, list_2, sn7"
+                song_name_8 = "rosh, list_2, sn8"
+                song_name_9 = "rosh, list_2, sn9"
+                song_name_10 = "rosh, list_2, sn10"
+            if scroll == 1:
+                song_name_1 = "rosh, list_2, sn11"
+                song_name_2 = "rosh, list_2, sn12"
+                song_name_3 = "rosh, list_2, sn13"
+                song_name_4 = "rosh, list_2, sn14"
+                song_name_5 = "rosh, list_2, sn15"
+                song_name_6 = "rosh, list_2, sn16"
+                song_name_7 = "rosh, list_2, sn17"
+                song_name_8 = "rosh, list_2, sn18"
+                song_name_9 = "rosh, list_2, sn19"
+                song_name_10 = "rosh, list_2, sn20"
+        if ls_playlist_num == 3:
+            if scroll == 0:
+                song_name_1 = "rosh, list_3, sn1"
+                song_name_2 = "rosh, list_3, sn2"
+                song_name_3 = "rosh, list_3, sn3"
+                song_name_4 = "rosh, list_3, sn4"
+                song_name_5 = "rosh, list_3, sn5"
+                song_name_6 = "rosh, list_3, sn6"
+                song_name_7 = "rosh, list_3, sn7"
+                song_name_8 = "rosh, list_3, sn8"
+                song_name_9 = "rosh, list_3, sn9"
+                song_name_10 = "rosh, list_3, sn10"
+            if scroll == 1:
+                song_name_1 = "rosh, list_3, sn11"
+                song_name_2 = "rosh, list_3, sn12"
+                song_name_3 = "rosh, list_3, sn13"
+                song_name_4 = "rosh, list_3, sn14"
+                song_name_5 = "rosh, list_3, sn15"
+                song_name_6 = "rosh, list_3, sn16"
+                song_name_7 = "rosh, list_3, sn17"
+                song_name_8 = "rosh, list_3, sn18"
+                song_name_9 = "rosh, list_3, sn19"
+                song_name_10 = "rosh, list_3, sn20"
+        if ls_playlist_num == 4:
+            if scroll == 0:
+                song_name_1 = "rosh, list_4, sn1"
+                song_name_2 = "rosh, list_4, sn2"
+                song_name_3 = "rosh, list_4, sn3"
+                song_name_4 = "rosh, list_4, sn4"
+                song_name_5 = "rosh, list_4, sn5"
+                song_name_6 = "rosh, list_4, sn6"
+                song_name_7 = "rosh, list_4, sn7"
+                song_name_8 = "rosh, list_4, sn8"
+                song_name_9 = "rosh, list_4, sn9"
+                song_name_10 = "rosh, list_4, sn10"
+            if scroll == 1:
+                song_name_1 = "rosh, list_4, sn11"
+                song_name_2 = "rosh, list_4, sn12"
+                song_name_3 = "rosh, list_4, sn13"
+                song_name_4 = "rosh, list_4, sn14"
+                song_name_5 = "rosh, list_4, sn15"
+                song_name_6 = "rosh, list_4, sn16"
+                song_name_7 = "rosh, list_4, sn17"
+                song_name_8 = "rosh, list_4, sn18"
+                song_name_9 = "rosh, list_4, sn19"
+                song_name_10 = "rosh, list_4, sn20"
+        if ls_playlist_num == 5:
+            if scroll == 0:
+                song_name_1 = "rosh, list_5, sn1"
+                song_name_2 = "rosh, list_5, sn2"
+                song_name_3 = "rosh, list_5, sn3"
+                song_name_4 = "rosh, list_5, sn4"
+                song_name_5 = "rosh, list_5, sn5"
+                song_name_6 = "rosh, list_5, sn6"
+                song_name_7 = "rosh, list_5, sn7"
+                song_name_8 = "rosh, list_5, sn8"
+                song_name_9 = "rosh, list_5, sn9"
+                song_name_10 = "rosh, list_5, sn10"
+            if scroll == 1:
+                song_name_1 = "rosh, list_5, sn11"
+                song_name_2 = "rosh, list_5, sn12"
+                song_name_3 = "rosh, list_5, sn13"
+                song_name_4 = "rosh, list_5, sn14"
+                song_name_5 = "rosh, list_5, sn15"
+                song_name_6 = "rosh, list_5, sn16"
+                song_name_7 = "rosh, list_5, sn17"
+                song_name_8 = "rosh, list_5, sn18"
+                song_name_9 = "rosh, list_5, sn19"
+                song_name_10 = "rosh, list_5, sn20"
+        if ls_playlist_num == 6:
+            if scroll == 0:
+                song_name_1 = "rosh, list_6, sn1"
+                song_name_2 = "rosh, list_6, sn2"
+                song_name_3 = "rosh, list_6, sn3"
+                song_name_4 = "rosh, list_6, sn4"
+                song_name_5 = "rosh, list_6, sn5"
+                song_name_6 = "rosh, list_6, sn6"
+                song_name_7 = "rosh, list_6, sn7"
+                song_name_8 = "rosh, list_6, sn8"
+                song_name_9 = "rosh, list_6, sn9"
+                song_name_10 = "rosh, list_6, sn10"
+            if scroll == 1:
+                song_name_1 = "rosh, list_6, sn11"
+                song_name_2 = "rosh, list_6, sn12"
+                song_name_3 = "rosh, list_6, sn13"
+                song_name_4 = "rosh, list_6, sn14"
+                song_name_5 = "rosh, list_6, sn15"
+                song_name_6 = "rosh, list_6, sn16"
+                song_name_7 = "rosh, list_6, sn17"
+                song_name_8 = "rosh, list_6, sn18"
+                song_name_9 = "rosh, list_6, sn19"
+                song_name_10 = "rosh, list_6, sn20"
+        if ls_playlist_num == 7:
+            if scroll == 0:
+                song_name_1 = "rosh, list_7, sn1"
+                song_name_2 = "rosh, list_7, sn2"
+                song_name_3 = "rosh, list_7, sn3"
+                song_name_4 = "rosh, list_7, sn4"
+                song_name_5 = "rosh, list_7, sn5"
+                song_name_6 = "rosh, list_7, sn6"
+                song_name_7 = "rosh, list_7, sn7"
+                song_name_8 = "rosh, list_7, sn8"
+                song_name_9 = "rosh, list_7, sn9"
+                song_name_10 = "rosh, list_7, sn10"
+            if scroll == 1:
+                song_name_1 = "rosh, list_7, sn11"
+                song_name_2 = "rosh, list_7, sn12"
+                song_name_3 = "rosh, list_7, sn13"
+                song_name_4 = "rosh, list_7, sn14"
+                song_name_5 = "rosh, list_7, sn15"
+                song_name_6 = "rosh, list_7, sn16"
+                song_name_7 = "rosh, list_7, sn17"
+                song_name_8 = "rosh, list_7, sn18"
+                song_name_9 = "rosh, list_7, sn19"
+                song_name_10 = "rosh, list_7, sn20"
+        if ls_playlist_num == 8:
+            if scroll == 0:
+                song_name_1 = "rosh, list_8, sn1"
+                song_name_2 = "rosh, list_8, sn2"
+                song_name_3 = "rosh, list_8, sn3"
+                song_name_4 = "rosh, list_8, sn4"
+                song_name_5 = "rosh, list_8, sn5"
+                song_name_6 = "rosh, list_8, sn6"
+                song_name_7 = "rosh, list_8, sn7"
+                song_name_8 = "rosh, list_8, sn8"
+                song_name_9 = "rosh, list_8, sn9"
+                song_name_10 = "rosh, list_8, sn10"
+            if scroll == 1:
+                song_name_1 = "rosh, list_8, sn11"
+                song_name_2 = "rosh, list_8, sn12"
+                song_name_3 = "rosh, list_8, sn13"
+                song_name_4 = "rosh, list_8, sn14"
+                song_name_5 = "rosh, list_8, sn15"
+                song_name_6 = "rosh, list_8, sn16"
+                song_name_7 = "rosh, list_8, sn17"
+                song_name_8 = "rosh, list_8, sn18"
+                song_name_9 = "rosh, list_8, sn19"
+                song_name_10 = "rosh, list_8, sn20"
+        
 
 #FIXME finish playlist open function based on halloween_music
 
@@ -537,69 +1564,69 @@ def on_mouse_down(pos):
         if current_scene in ["tree_room", "halloween", "rosh", "dia"]:
             current_scene = "setup"
     if scroll_down.collidepoint(pos):
-        if current_scene == "halloween" or "rosh" or "dia":
+        if current_scene == "halloween" or current_scene == "rosh" or current_scene == "dia":
             if scroll < max_scroll:
                 scroll = scroll + 1
     if scroll_up.collidepoint(pos):
-        if current_scene == "halloween" or "rosh" or "dia":
+        if current_scene == "halloween" or current_scene == "rosh" or current_scene == "dia":
             if scroll > 0:
                 scroll = scroll - 1
     if playlist_symbol_1.collidepoint(pos):
         if current_scene == "halloween":
-            open_list(halloween_1)
+            open_list("halloween", 1)
         if current_scene == "dia":
-            open_list(dia_1)
+            open_list("dia", 1)
         if current_scene == "rosh":
-            open_list(rosh_1)
+            open_list(rosh, 1)
     if playlist_symbol_2.collidepoint(pos):
         if current_scene == "halloween":
-            open_list(halloween_2)
+            open_list("halloween", 2)
         if current_scene == "dia":
-            open_list(dia_2)
+            open_list("dia", 2)
         if current_scene == "rosh":
-            open_list(rosh_2)
+            open_list("rosh", 2)
     if playlist_symbol_3.collidepoint(pos):
         if current_scene == "halloween":
-            open_list(halloween_3)
+            open_list("halloween", 3)
         if current_scene == "dia":
-            open_list(dia_3)
+            open_list("dia", 3)
         if current_scene == "rosh":
-            open_list(rosh_3)
+            open_list("rosh", 3)
     if playlist_symbol_4.collidepoint(pos):
         if current_scene == "halloween":
-            open_list(halloween_4)
+            open_list("halloween", 4)
         if current_scene == "dia":
-            open_list(dia_4)
+            open_list("dia", 4)
         if current_scene == "rosh":
-            open_list(rosh_4)
+            open_list("rosh", 4)
     if playlist_symbol_5.collidepoint(pos):
         if current_scene == "halloween":
-            open_list(halloween_5)
+            open_list("halloween", 5)
         if current_scene == "dia":
-            open_list(dia_5)
+            open_list("dia", 5)
         if current_scene == "rosh":
-            open_list(rosh_5)
+            open_list("rosh", 5)
     if playlist_symbol_6.collidepoint(pos):
         if current_scene == "halloween":
-            open_list(halloween_6)
+            open_list("halloween", 6)
         if current_scene == "dia":
-            open_list(dia_6)
+            open_list("dia", 6)
         if current_scene == "rosh":
-            open_list(rosh_6)
+            open_list("rosh", 6)
     if playlist_symbol_7.collidepoint(pos):
         if current_scene == "halloween":
-            open_list(halloween_7)
+            open_list("halloween", 7)
         if current_scene == "dia":
-            open_list(dia_7)
+            open_list("dia", 7)
         if current_scene == "rosh":
-            open_list(rosh_7)
+            open_list("rosh", 7)
     if playlist_symbol_8.collidepoint(pos):
         if current_scene == "halloween":
-            open_list(halloween_8)
+            open_list("halloween", 8)
         if current_scene == "dia":
-            open_list(dia_8)
+            open_list("dia", 8)
         if current_scene == "rosh":
-            open_list(rosh_8)
+            open_list("rosh", 8)
     
 
 
