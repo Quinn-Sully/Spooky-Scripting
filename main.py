@@ -78,6 +78,39 @@ playlist_symbol_6 = Actor("playlist_symbol", (305, 380))
 playlist_symbol_7 = Actor("playlist_symbol", (505, 380))
 playlist_symbol_8 = Actor("playlist_symbol", (705, 380))
 
+rosh_frame_1 = Rect((100, 120), (600, 40))
+rosh_frame_2 = Rect((100, 160), (600, 40))
+rosh_frame_3 = Rect((100, 200), (600, 40))
+rosh_frame_4 = Rect((100, 240), (600, 40))
+rosh_frame_5 = Rect((100, 280), (600, 40))
+rosh_frame_6 = Rect((100, 320), (600, 40))
+rosh_frame_7 = Rect((100, 360), (600, 40))
+rosh_frame_8 = Rect((100, 400), (600, 40))
+rosh_frame_9 = Rect((100, 440), (600, 40))
+rosh_frame_10 = Rect((100, 480), (600, 40))
+
+dia_frame_1 = Rect((100, 120), (600, 40))
+dia_frame_2 = Rect((100, 160), (600, 40))
+dia_frame_3 = Rect((100, 200), (600, 40))
+dia_frame_4 = Rect((100, 240), (600, 40))
+dia_frame_5 = Rect((100, 280), (600, 40))
+dia_frame_6 = Rect((100, 320), (600, 40))
+dia_frame_7 = Rect((100, 360), (600, 40))
+dia_frame_8 = Rect((100, 400), (600, 40))
+dia_frame_9 = Rect((100, 440), (600, 40))
+dia_frame_10 = Rect((100, 480), (600, 40))
+
+halloween_frame_1 = Rect((100, 120), (600, 40))
+halloween_frame_2 = Rect((100, 160), (600, 40))
+halloween_frame_3 = Rect((100, 200), (600, 40))
+halloween_frame_4 = Rect((100, 240), (600, 40))
+halloween_frame_5 = Rect((100, 280), (600, 40))
+halloween_frame_6 = Rect((100, 320), (600, 40))
+halloween_frame_7 = Rect((100, 360), (600, 40))
+halloween_frame_8 = Rect((100, 400), (600, 40))
+halloween_frame_9 = Rect((100, 440), (600, 40))
+halloween_frame_10 = Rect((100, 480), (600, 40))
+
 
 #music template
 # music_rect_template = Rect((100, 120+40x), (600, 40))
@@ -97,12 +130,16 @@ play_name_8 = "playlist eight"
 # This is for fullscreen
 once = False
 once_treeroom = False
-playlist_currently_open == "none"
+playlist_currently_open = "none"
 scroll = 0
-
+playlist_that_is_currently_open = "none"
 treeside = 0
+global_list_holiday = "none"
+global_list_num = 0
 
 current_scene = "setup"
+
+is_playlist_currently_open = False
 
 
 # This is the main loop and is called every frame. The current_scene variable dictates
@@ -112,6 +149,7 @@ def draw():
     global once_treeroom
     global treeside
     global playlist_currently_open
+    global is_playlist_currently_open
     if not once:
         screen.surface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
         once = True
@@ -132,19 +170,38 @@ def draw():
             fall_tree_background.draw()
         case "halloween":
             screen.fill((255, 144, 0))
-            screen.draw.text("Halloween Music!", (250, 50), fontsize=50, color="yellow")
-            back_arrow.draw()
-            draw_lists()
+            if not is_playlist_currently_open:
+                screen.draw.text("Halloween Music!", (250, 50), fontsize=50, color="yellow")
+                back_arrow.draw()
+                draw_lists()
+            if is_playlist_currently_open:
+                if playlist_currently_open == "halloween":
+                    back_arrow.draw()
+                    open_list("halloween", global_list_num)
+                    draw_songs()
+
         case "rosh":
             screen.fill((237, 223, 24))
-            screen.draw.text("Rosh Hashanah Music!", (210, 50), fontsize=50, color="black")
-            back_arrow.draw()
-            draw_lists()
+            if not is_playlist_currently_open:
+                screen.draw.text("Rosh Hashanah Music!", (210, 50), fontsize=50, color="black")
+                back_arrow.draw()
+                draw_lists()
+            if is_playlist_currently_open:
+                if playlist_currently_open == "rosh":
+                    back_arrow.draw()
+                    open_list("rosh", global_list_num)
+                    draw_songs()
         case "dia":
             screen.fill((163, 82, 255))
-            screen.draw.text("Dia De Los Muertos Music!", (170, 50), fontsize=50, color="pink")
-            back_arrow.draw()
-            draw_lists()
+            if not is_playlist_currently_open:
+                screen.draw.text("Dia De Los Muertos Music!", (170, 50), fontsize=50, color="pink")
+                back_arrow.draw()
+                draw_lists()
+            if is_playlist_currently_open:
+                if playlist_currently_open == "dia":
+                    back_arrow.draw()
+                    open_list("dia", global_list_num)
+                    draw_songs()
         case "tree_room":
             screen.fill((56, 36, 0))
             screen.draw.text(
@@ -158,7 +215,25 @@ def draw():
             if treeside == 1:
                 dancing_tree_opposite.draw()
             back_arrow.draw()
-    if playlist_currently_open == "halloween":
+
+def draw_songs():
+    global current_scene
+    global scroll
+    global max_scroll
+    global song_name_1
+    global song_name_2
+    global song_name_3
+    global song_name_4
+    global song_name_5
+    global song_name_6
+    global song_name_7
+    global song_name_8
+    global song_name_9
+    if current_scene == "halloween":
+        max_scroll = 3
+        screen.draw.text(str(playlist_that_is_currently_open), midtop=(400, 50), fontsize=50, color="yellow")
+        screen.draw.rect(music_frame, "brown")
+            
         screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
         screen.draw.rect(halloween_frame_1, "brown")
 
@@ -189,7 +264,14 @@ def draw():
         screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
         screen.draw.rect(halloween_frame_10, "brown")
 
-    if playlist_currently_open == "dia":
+        scroll_up.draw()
+        scroll_down.draw()
+    
+    if current_scene == "dia":
+        max_scroll = 1
+        screen.draw.text(str(playlist_that_is_currently_open), midtop=(400, 50), fontsize=50, color="pink")
+        screen.draw.rect(music_frame, "brown")
+
         screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
         screen.draw.rect(dia_frame_1, "brown")
 
@@ -220,7 +302,14 @@ def draw():
         screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
         screen.draw.rect(dia_frame_10, "brown")
 
-    if playlist_currently_open == "rosh":
+        scroll_up.draw()
+        scroll_down.draw()
+    
+    if current_scene == "rosh":
+        max_scroll = 1
+        screen.draw.text(str(playlist_that_is_currently_open), midtop=(400, 50), fontsize=50, color="black")
+        screen.draw.rect(music_frame, "black")
+
         screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
         screen.draw.rect(rosh_frame_1, "brown")
 
@@ -251,6 +340,10 @@ def draw():
         screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
         screen.draw.rect(rosh_frame_10, "brown")
 
+        scroll_up.draw()
+        scroll_down.draw()
+            
+        
 
 def start_halloween():
     global current_scene
@@ -283,8 +376,6 @@ def draw_lists():
     screen.draw.text(play_name_6, midtop=(305, 460), fontsize=30, color="black")
     screen.draw.text(play_name_7, midtop=(505, 460), fontsize=30, color="black")
     screen.draw.text(play_name_8, midtop=(705, 460), fontsize=30, color="black")
-
-# FIXME put in playlists
 
 def name_lists():
     global play_name_1
@@ -352,261 +443,125 @@ def open_list(list_holiday, playlist_num):
     global dia_frame_8
     global dia_frame_9
     global dia_frame_10
-    global rosh_frame_1
-    global rosh_frame_2
-    global rosh_frame_3
-    global rosh_frame_4
-    global rosh_frame_5
-    global rosh_frame_6
-    global rosh_frame_7
-    global rosh_frame_8
-    global rosh_frame_9
-    global rosh_frame_10
+    global is_playlist_currently_open
+    global playlist_that_is_currently_open
+    global global_list_holiday
+    global global_list_num
+    is_playlist_currently_open = True
     if list_holiday == "halloween":
-        screen.draw.rect(music_frame, "brown")
-        halloween_frame_1 = Rect((100, 120), (600, 40))
-        halloween_frame_2 = Rect((100, 160), (600, 40))
-        halloween_frame_3 = Rect((100, 200), (600, 40))
-        halloween_frame_4 = Rect((100, 240), (600, 40))
-        halloween_frame_5 = Rect((100, 280), (600, 40))
-        halloween_frame_6 = Rect((100, 320), (600, 40))
-        halloween_frame_7 = Rect((100, 360), (600, 40))
-        halloween_frame_8 = Rect((100, 400), (600, 40))
-        halloween_frame_9 = Rect((100, 440), (600, 40))
-        halloween_frame_10 = Rect((100, 480), (600, 40))
+        global_list_holiday = "halloween"
         if playlist_num == 1:
-            if scroll == 0:
-                load_songs("halloween", 1, 0)
-            if scroll == 1:
-                load_songs("halloween", 1, 1)
-            if scroll == 2:
-                load_songs("halloween", 1, 2)
+            playlist_that_is_currently_open = "Party"
+            global_list_num = 1
+            load_songs("halloween", 1)
         if playlist_num == 2:
-            if scroll == 0:
-                load_songs("halloween", 2, 0)
-            if scroll == 1:
-                load_songs("halloween", 2, 1)
-            if scroll == 2:
-                load_songs("halloween", 2, 2)
+            playlist_that_is_currently_open = "Spooky"
+            global_list_num = 2
+            load_songs("halloween", 2)
         if playlist_num == 3:
-            if scroll == 0:
-                load_songs("halloween", 3, 0)
-            if scroll == 1:
-                load_songs("halloween", 3, 1)
-            if scroll == 2:
-                load_songs("halloween", 3, 2)
+            playlist_that_is_currently_open = "Classical"
+            global_list_num = 3
+            load_songs("halloween", 3)
         if playlist_num == 4:
-            if scroll == 0:
-                load_songs("halloween", 4, 0)
-            if scroll == 1:
-                load_songs("halloween", 4, 1)
-            if scroll == 2:
-                load_songs("halloween", 4, 2)
+            playlist_that_is_currently_open = "Jumpscares"
+            global_list_num = 4
+            load_songs("halloween", 4)
         if playlist_num == 5:
-            if scroll == 0:
-                load_songs("halloween", 5, 0)
-            if scroll == 1:
-                load_songs("halloween", 5, 1)
-            if scroll == 2:
-                load_songs("halloween", 5, 2)
+            playlist_that_is_currently_open = "Rock and Roll"
+            global_list_num = 5
+            load_songs("halloween", 5)
         if playlist_num == 6:
-            if scroll == 0:
-                load_songs("halloween", 6, 0)
-            if scroll == 1:
-                load_songs("halloween", 6, 1)
-            if scroll == 2:
-                load_songs("halloween", 6, 2)
+            playlist_that_is_currently_open = "Jazz"
+            global_list_num = 6
+            load_songs("halloween", 6)
         if playlist_num == 7:
-            if scroll == 0:
-                load_songs("halloween", 7, 0)
-            if scroll == 1:
-                load_songs("halloween", 7, 1)
-            if scroll == 2:
-                load_songs("halloween", 7, 2)
+            playlist_that_is_currently_open = "Classics"
+            global_list_num = 7
+            load_songs("halloween", 7)
         if playlist_num == 8:
-            if scroll == 0:
-                load_songs("halloween", 8, 0)
-            if scroll == 1:
-                load_songs("halloween", 8, 1)
-            if scroll == 2:
-                load_songs("halloween", 8, 2)
-                
+            playlist_that_is_currently_open = "For Kids"
+            global_list_num = 8
+            load_songs("halloween", 8)
         playlist_currently_open = "halloween"
-        screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_1, "brown")
 
-        screen.draw.text(song_name_2, (130, 170), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_2, "brown")
-
-        screen.draw.text(song_name_3, (130, 210), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_3, "brown")
-
-        screen.draw.text(song_name_4, (130, 250), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_4, "brown")
-
-        screen.draw.text(song_name_5, (130, 290), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_5, "brown")
-
-        screen.draw.text(song_name_6, (130, 330), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_6, "brown")
-
-        screen.draw.text(song_name_7, (130, 370), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_7, "brown")
-
-        screen.draw.text(song_name_8, (130, 410), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_8, "brown")
-
-        screen.draw.text(song_name_9, (130, 450), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_9, "brown")
-
-        screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
-        screen.draw.rect(halloween_frame_10, "brown")
 
     if list_holiday == "dia":
+        global_list_holiday = "dia"
         if playlist_num == 1:
-            if scroll == 0:
-                load_songs("dia", 1, 0)
-            if scroll == 1:
-                load_songs("dia", 1, 1)
-            if scroll == 2:
-                load_songs("dia", 1, 2)
+            playlist_that_is_currently_open = "Celebration"
+            global_list_num = 1
+            load_songs("dia", 1)
         if playlist_num == 2:
-            if scroll == 0:
-                load_songs("dia", 2, 0)
-            if scroll == 1:
-                load_songs("dia", 2, 1)
-            if scroll == 2:
-                load_songs("dia", 2, 2)
+            playlist_that_is_currently_open = "Coco"
+            global_list_num = 2
+            load_songs("dia", 2)
         if playlist_num == 3:
-            if scroll == 0:
-                load_songs("dia", 3, 0)
-            if scroll == 1:
-                load_songs("dia", 3, 1)
-            if scroll == 2:
-                load_songs("dia", 3, 2)
+            playlist_that_is_currently_open = "Classics"
+            global_list_num = 3
+            load_songs("dia", 3)
         if playlist_num == 4:
-            if scroll == 0:
-                load_songs("dia", 4, 0)
-            if scroll == 1:
-                load_songs("dia", 4, 1)
-            if scroll == 2:
-                load_songs("dia", 4, 2)
+            playlist_that_is_currently_open = "Party"
+            global_list_num = 4
+            load_songs("dia", 4)
         if playlist_num == 5:
-            if scroll == 0:
-                load_songs("dia", 5, 0)
-            if scroll == 1:
-                load_songs("dia", 5, 1)
-            if scroll == 2:
-                load_songs("dia", 5, 2)
+            playlist_that_is_currently_open = "For Kids"
+            global_list_num = 5
+            load_songs("dia", 5)
         if playlist_num == 6:
-            if scroll == 0:
-                load_songs("dia", 6, 0)
-            if scroll == 1:
-                load_songs("dia", 6, 1)
-            if scroll == 2:
-                load_songs("dia", 6, 2)
+            playlist_that_is_currently_open = "This playlist doesn't exist yet"
+            global_list_num = 6
+            load_songs("dia", 6)
         if playlist_num == 7:
-            if scroll == 0:
-                load_songs("dia", 7, 0)
-            if scroll == 1:
-                load_songs("dia", 7, 1)
-            if scroll == 2:
-                load_songs("dia", 7, 2)
+            playlist_that_is_currently_open = "This playlist doesn't exist yet"
+            global_list_num = 7
+            load_songs("dia", 7)
         if playlist_num == 8:
-            if scroll == 0:
-                load_songs("dia", 8, 0)
-            if scroll == 1:
-                load_songs("dia", 8, 1)
-            if scroll == 2:
-                load_songs("dia", 8, 2)
+            playlist_that_is_currently_open = "This playlist doesn't exist yet"
+            global_list_num = 8
+            load_songs("dia", 8)
         playlist_currently_open == "dia"
-    screen.draw.rect(music_frame, "yellow")
-    dia_frame_1 = Rect((100, 120), (600, 40))
-    dia_frame_2 = Rect((100, 160), (600, 40))
-    dia_frame_3 = Rect((100, 200), (600, 40))
-    dia_frame_4 = Rect((100, 240), (600, 40))
-    dia_frame_5 = Rect((100, 280), (600, 40))
-    dia_frame_6 = Rect((100, 320), (600, 40))
-    dia_frame_7 = Rect((100, 360), (600, 40))
-    dia_frame_8 = Rect((100, 400), (600, 40))
-    dia_frame_9 = Rect((100, 440), (600, 40))
-    dia_frame_10 = Rect((100, 480), (600, 40))
     
         
     
     if list_holiday == "rosh":
+        global_list_holiday = "rosh"
         if playlist_num == 1:
-            if scroll == 0:
-                load_songs("rosh", 1, 0)
-            if scroll == 1:
-                load_songs("rosh", 1, 1)
-            if scroll == 2:
-                load_songs("rosh", 1, 2)
+            playlist_that_is_currently_open = "Celebration"
+            global_list_num = 1
+            load_songs("rosh", 1)
         if playlist_num == 2:
-            if scroll == 0:
-                load_songs("rosh", 2, 0)
-            if scroll == 1:
-                load_songs("rosh", 2, 1)
-            if scroll == 2:
-                load_songs("rosh", 2, 2)
+            playlist_that_is_currently_open = "Religious"
+            global_list_num = 2
+            load_songs("rosh", 2)
         if playlist_num == 3:
-            if scroll == 0:
-                load_songs("rosh", 3, 0)
-            if scroll == 1:
-                load_songs("rosh", 3, 1)
-            if scroll == 2:
-                load_songs("rosh", 3, 2)
+            playlist_that_is_currently_open = "Party"
+            global_list_num = 3
+            load_songs("rosh", 3)
         if playlist_num == 4:
-            if scroll == 0:
-                load_songs("rosh", 4, 0)
-            if scroll == 1:
-                load_songs("rosh", 4, 1)
-            if scroll == 2:
-                load_songs("rosh", 4, 2)
+            playlist_that_is_currently_open = "For Kids"
+            global_list_num = 4
+            load_songs("rosh", 4)
         if playlist_num == 5:
-            if scroll == 0:
-                load_songs("rosh", 5, 0)
-            if scroll == 1:
-                load_songs("rosh", 5, 1)
-            if scroll == 2:
-                load_songs("rosh", 5, 2)
+            playlist_that_is_currently_open = "For Kids #2"
+            global_list_num = 5
+            load_songs("rosh", 5)
         if playlist_num == 6:
-            if scroll == 0:
-                load_songs("rosh", 6, 0)
-            if scroll == 1:
-                load_songs("rosh", 6, 1)
-            if scroll == 2:
-                load_songs("rosh", 6, 2)
+            playlist_that_is_currently_open = "This Playlist Doesn't Exist Yet"
+            global_list_num = 6
+            load_songs("rosh", 6)
         if playlist_num == 7:
-            if scroll == 0:
-                load_songs("rosh", 7, 0)
-            if scroll == 1:
-                load_songs("rosh", 7, 1)
-            if scroll == 2:
-                load_songs("rosh", 7, 2)
+            playlist_that_is_currently_open = "This Playlist Doesn't Exist Yet"
+            global_list_num = 7
+            load_songs("rosh", 7)
         if playlist_num == 8:
-            if scroll == 0:
-                load_songs("rosh", 8, 0)
-            if scroll == 1:
-                load_songs("rosh", 8, 1)
-            if scroll == 2:
-                load_songs("rosh", 8, 2)
+            playlist_that_is_currently_open = "This Playlist Doesn't Exist Yet"
+            global_list_num = 8
+            load_songs("rosh", 8)
         playlist_currently_open == "rosh"
-        screen.draw.rect(music_frame, "brown")
-        rosh_frame_1 = Rect((100, 120), (600, 40))
-        rosh_frame_2 = Rect((100, 160), (600, 40))
-        rosh_frame_3 = Rect((100, 200), (600, 40))
-        rosh_frame_4 = Rect((100, 240), (600, 40))
-        rosh_frame_5 = Rect((100, 280), (600, 40))
-        rosh_frame_6 = Rect((100, 320), (600, 40))
-        rosh_frame_7 = Rect((100, 360), (600, 40))
-        rosh_frame_8 = Rect((100, 400), (600, 40))
-        rosh_frame_9 = Rect((100, 440), (600, 40))
-        rosh_frame_10 = Rect((100, 480), (600, 40))
     
         
-
-def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
+# figures out song name based on holiday, playlist and scroll
+def load_songs(ls_holiday, ls_playlist_num):
     global song_name_1
     global song_name_2
     global song_name_3
@@ -617,10 +572,11 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
     global song_name_8
     global song_name_9
     global song_name_10
+    global scroll
     if ls_holiday == "halloween":
         if ls_playlist_num == 1:
-            if ls_scroll == 0:
-                song_name_1 = "halloween, list_1, sn1"
+            if scroll == 0:
+                song_name_1 = "Ghostbusters Theme"
                 song_name_2 = "halloween, list_1, sn2"
                 song_name_3 = "halloween, list_1, sn3"
                 song_name_4 = "halloween, list_1, sn4"
@@ -630,7 +586,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_1, sn8"
                 song_name_9 = "halloween, list_1, sn9"
                 song_name_10 = "halloween, list_1, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "halloween, list_1, sn11"
                 song_name_2 = "halloween, list_1, sn12"
                 song_name_3 = "halloween, list_1, sn13"
@@ -641,7 +597,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_1, sn18"
                 song_name_9 = "halloween, list_1, sn19"
                 song_name_10 = "halloween, list_1, sn20"
-            if ls_scroll == 2:
+            if scroll == 2:
                 song_name_1 = "halloween, list_1, sn21"
                 song_name_2 = "halloween, list_1, sn22"
                 song_name_3 = "halloween, list_1, sn23"
@@ -654,7 +610,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_10 = "halloween, list_1, sn30"
         
         if ls_playlist_num == 2:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "halloween, list_2, sn1"
                 song_name_2 = "halloween, list_2, sn2"
                 song_name_3 = "halloween, list_2, sn3"
@@ -665,7 +621,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_2, sn8"
                 song_name_9 = "halloween, list_2, sn9"
                 song_name_10 = "halloween, list_2, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "halloween, list_2, sn11"
                 song_name_2 = "halloween, list_2, sn12"
                 song_name_3 = "halloween, list_2, sn13"
@@ -676,7 +632,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_2, sn18"
                 song_name_9 = "halloween, list_2, sn19"
                 song_name_10 = "halloween, list_2, sn20"
-            if ls_scroll == 2:
+            if scroll == 2:
                 song_name_1 = "halloween, list_2, sn21"
                 song_name_2 = "halloween, list_2, sn22"
                 song_name_3 = "halloween, list_2, sn23"
@@ -689,7 +645,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_10 = "halloween, list_2, sn30"
         
         if ls_playlist_num == 3:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "halloween, list_3, sn1"
                 song_name_2 = "halloween, list_3, sn2"
                 song_name_3 = "halloween, list_3, sn3"
@@ -700,7 +656,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_3, sn8"
                 song_name_9 = "halloween, list_3, sn9"
                 song_name_10 = "halloween, list_3, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "halloween, list_3, sn11"
                 song_name_2 = "halloween, list_3, sn12"
                 song_name_3 = "halloween, list_3, sn13"
@@ -711,7 +667,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_3, sn18"
                 song_name_9 = "halloween, list_3, sn19"
                 song_name_10 = "halloween, list_3, sn20"
-            if ls_scroll == 2:
+            if scroll == 2:
                 song_name_1 = "halloween, list_3, sn21"
                 song_name_2 = "halloween, list_3, sn22"
                 song_name_3 = "halloween, list_3, sn23"
@@ -724,7 +680,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_10 = "halloween, list_3, sn30"
         
         if ls_playlist_num == 4:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "halloween, list_4, sn1"
                 song_name_2 = "halloween, list_4, sn2"
                 song_name_3 = "halloween, list_4, sn3"
@@ -735,7 +691,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_4, sn8"
                 song_name_9 = "halloween, list_4, sn9"
                 song_name_10 = "halloween, list_4, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "halloween, list_4, sn11"
                 song_name_2 = "halloween, list_4, sn12"
                 song_name_3 = "halloween, list_4, sn13"
@@ -746,7 +702,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_4, sn18"
                 song_name_9 = "halloween, list_4, sn19"
                 song_name_10 = "halloween, list_4, sn20"
-            if ls_scroll == 2:
+            if scroll == 2:
                 song_name_1 = "halloween, list_4, sn21"
                 song_name_2 = "halloween, list_4, sn22"
                 song_name_3 = "halloween, list_4, sn23"
@@ -759,7 +715,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_10 = "halloween, list_4, sn30"
         
         if ls_playlist_num == 5:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "halloween, list_5, sn1"
                 song_name_2 = "halloween, list_5, sn2"
                 song_name_3 = "halloween, list_5, sn3"
@@ -770,7 +726,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_5, sn8"
                 song_name_9 = "halloween, list_5, sn9"
                 song_name_10 = "halloween, list_5, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "halloween, list_5, sn11"
                 song_name_2 = "halloween, list_5, sn12"
                 song_name_3 = "halloween, list_5, sn13"
@@ -781,7 +737,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_5, sn18"
                 song_name_9 = "halloween, list_5, sn19"
                 song_name_10 = "halloween, list_5, sn20"
-            if ls_scroll == 2:
+            if scroll == 2:
                 song_name_1 = "halloween, list_5, sn21"
                 song_name_2 = "halloween, list_5, sn22"
                 song_name_3 = "halloween, list_5, sn23"
@@ -791,10 +747,10 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_7 = "halloween, list_5, sn27"
                 song_name_8 = "halloween, list_5, sn28"
                 song_name_9 = "halloween, list_5, sn29"
-                song_name_10 = "halloween, list_5, sn20"
+                song_name_10 = "halloween, list_5, sn30"
     
         if ls_playlist_num == 6:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "halloween, list_6, sn1"
                 song_name_2 = "halloween, list_6, sn2"
                 song_name_3 = "halloween, list_6, sn3"
@@ -805,7 +761,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_6, sn8"
                 song_name_9 = "halloween, list_6, sn9"
                 song_name_10 = "halloween, list_6, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "halloween, list_6, sn11"
                 song_name_2 = "halloween, list_6, sn12"
                 song_name_3 = "halloween, list_6, sn13"
@@ -816,7 +772,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_6, sn18"
                 song_name_9 = "halloween, list_6, sn19"
                 song_name_10 = "halloween, list_6, sn20"
-            if ls_scroll == 2:
+            if scroll == 2:
                 song_name_1 = "halloween, list_6, sn21"
                 song_name_2 = "halloween, list_6, sn22"
                 song_name_3 = "halloween, list_6, sn23"
@@ -829,7 +785,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_10 = "halloween, list_6, sn30"
         
         if ls_playlist_num == 7:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "halloween, list_7, sn1"
                 song_name_2 = "halloween, list_7, sn2"
                 song_name_3 = "halloween, list_7, sn3"
@@ -840,7 +796,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_7, sn8"
                 song_name_9 = "halloween, list_7, sn9"
                 song_name_10 = "halloween, list_7, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "halloween, list_7, sn11"
                 song_name_2 = "halloween, list_7, sn12"
                 song_name_3 = "halloween, list_7, sn13"
@@ -851,7 +807,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_7, sn18"
                 song_name_9 = "halloween, list_7, sn19"
                 song_name_10 = "halloween, list_7, sn20"
-            if ls_scroll == 2:
+            if scroll == 2:
                 song_name_1 = "halloween, list_7, sn21"
                 song_name_2 = "halloween, list_7, sn22"
                 song_name_3 = "halloween, list_7, sn23"
@@ -864,7 +820,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_10 = "halloween, list_7, sn30"
         
         if ls_playlist_num == 8:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "halloween, list_8, sn1"
                 song_name_2 = "halloween, list_8, sn2"
                 song_name_3 = "halloween, list_8, sn3"
@@ -875,7 +831,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_8, sn8"
                 song_name_9 = "halloween, list_8, sn9"
                 song_name_10 = "halloween, list_8, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "halloween, list_8, sn11"
                 song_name_2 = "halloween, list_8, sn12"
                 song_name_3 = "halloween, list_8, sn13"
@@ -886,7 +842,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "halloween, list_8, sn18"
                 song_name_9 = "halloween, list_8, sn19"
                 song_name_10 = "halloween, list_8, sn20"
-            if ls_scroll == 2:
+            if scroll == 2:
                 song_name_1 = "halloween, list_8, sn21"
                 song_name_2 = "halloween, list_8, sn22"
                 song_name_3 = "halloween, list_8, sn23"
@@ -899,7 +855,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_10 = "halloween, list_8, sn30"
     if ls_holiday == "dia":
         if ls_playlist_num == 1:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "dia, list_1, sn1"
                 song_name_2 = "dia, list_1, sn2"
                 song_name_3 = "dia, list_1, sn3"
@@ -910,7 +866,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "dia, list_1, sn8"
                 song_name_9 = "dia, list_1, sn9"
                 song_name_10 = "dia, list_1, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "dia, list_1, sn11"
                 song_name_2 = "dia, list_1, sn12"
                 song_name_3 = "dia, list_1, sn13"
@@ -922,7 +878,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_9 = "dia, list_1, sn19"
                 song_name_10 = "dia, list_1, sn20"
         if ls_playlist_num == 2:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "dia, list_2, sn1"
                 song_name_2 = "dia, list_2, sn2"
                 song_name_3 = "dia, list_2, sn3"
@@ -933,7 +889,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "dia, list_2, sn8"
                 song_name_9 = "dia, list_2, sn9"
                 song_name_10 = "dia, list_2, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "dia, list_2, sn11"
                 song_name_2 = "dia, list_2, sn12"
                 song_name_3 = "dia, list_2, sn13"
@@ -945,7 +901,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_9 = "dia, list_2, sn19"
                 song_name_10 = "dia, list_2, sn20"
         if ls_playlist_num == 3:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "dia, list_3, sn1"
                 song_name_2 = "dia, list_3, sn2"
                 song_name_3 = "dia, list_3, sn3"
@@ -956,7 +912,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "dia, list_3, sn8"
                 song_name_9 = "dia, list_3, sn9"
                 song_name_10 = "dia, list_3, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "dia, list_3, sn11"
                 song_name_2 = "dia, list_3, sn12"
                 song_name_3 = "dia, list_3, sn13"
@@ -968,7 +924,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_9 = "dia, list_3, sn19"
                 song_name_10 = "dia, list_3, sn20"
         if ls_playlist_num == 4:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "dia, list_4, sn1"
                 song_name_2 = "dia, list_4, sn2"
                 song_name_3 = "dia, list_4, sn3"
@@ -979,7 +935,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "dia, list_4, sn8"
                 song_name_9 = "dia, list_4, sn9"
                 song_name_10 = "dia, list_4, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "dia, list_4, sn11"
                 song_name_2 = "dia, list_4, sn12"
                 song_name_3 = "dia, list_4, sn13"
@@ -991,7 +947,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_9 = "dia, list_4, sn19"
                 song_name_10 = "dia, list_4, sn20"
         if ls_playlist_num == 5:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "dia, list_5, sn1"
                 song_name_2 = "dia, list_5, sn2"
                 song_name_3 = "dia, list_5, sn3"
@@ -1002,7 +958,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "dia, list_5, sn8"
                 song_name_9 = "dia, list_5, sn9"
                 song_name_10 = "dia, list_5, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "dia, list_5, sn11"
                 song_name_2 = "dia, list_5, sn12"
                 song_name_3 = "dia, list_5, sn13"
@@ -1014,7 +970,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_9 = "dia, list_5, sn19"
                 song_name_10 = "dia, list_5, sn20"
         if ls_playlist_num == 6:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "dia, list_6, sn1"
                 song_name_2 = "dia, list_6, sn2"
                 song_name_3 = "dia, list_6, sn3"
@@ -1025,7 +981,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "dia, list_6, sn8"
                 song_name_9 = "dia, list_6, sn9"
                 song_name_10 = "dia, list_6, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "dia, list_6, sn11"
                 song_name_2 = "dia, list_6, sn12"
                 song_name_3 = "dia, list_6, sn13"
@@ -1037,7 +993,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_9 = "dia, list_6, sn19"
                 song_name_10 = "dia, list_6, sn20"
         if ls_playlist_num == 7:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "dia, list_7, sn1"
                 song_name_2 = "dia, list_7, sn2"
                 song_name_3 = "dia, list_7, sn3"
@@ -1048,7 +1004,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "dia, list_7, sn8"
                 song_name_9 = "dia, list_7, sn9"
                 song_name_10 = "dia, list_7, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "dia, list_7, sn11"
                 song_name_2 = "dia, list_7, sn12"
                 song_name_3 = "dia, list_7, sn13"
@@ -1060,7 +1016,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_9 = "dia, list_7, sn19"
                 song_name_10 = "dia, list_7, sn20"
         if ls_playlist_num == 8:
-            if ls_scroll == 0:
+            if scroll == 0:
                 song_name_1 = "dia, list_8, sn1"
                 song_name_2 = "dia, list_8, sn2"
                 song_name_3 = "dia, list_8, sn3"
@@ -1071,7 +1027,7 @@ def load_songs(ls_holiday, ls_playlist_num, ls_scroll):
                 song_name_8 = "dia, list_8, sn8"
                 song_name_9 = "dia, list_8, sn9"
                 song_name_10 = "dia, list_8, sn10"
-            if ls_scroll == 1:
+            if scroll == 1:
                 song_name_1 = "dia, list_8, sn11"
                 song_name_2 = "dia, list_8, sn12"
                 song_name_3 = "dia, list_8, sn13"
@@ -1538,15 +1494,12 @@ def fliptree():
         treeside = 0
 
 
-def draw_sample_text():
-    screen.draw.text("sample", (150, 50), fontsize=50, color="brown")
-
-
 # this function deals with whenever the mouse is clicked
 def on_mouse_down(pos):
     global max_scroll
     global scroll
     global current_scene
+    global is_playlist_currently_open
     if halloween_pumpkin.collidepoint(pos):
         if current_scene == "setup":
             start_halloween()
@@ -1562,7 +1515,10 @@ def on_mouse_down(pos):
                 enter_tree_room()
     if back_arrow.collidepoint(pos):
         if current_scene in ["tree_room", "halloween", "rosh", "dia"]:
-            current_scene = "setup"
+            if is_playlist_currently_open == False:
+                current_scene = "setup"
+            if is_playlist_currently_open:
+                is_playlist_currently_open = False
     if scroll_down.collidepoint(pos):
         if current_scene == "halloween" or current_scene == "rosh" or current_scene == "dia":
             if scroll < max_scroll:
@@ -1572,61 +1528,69 @@ def on_mouse_down(pos):
             if scroll > 0:
                 scroll = scroll - 1
     if playlist_symbol_1.collidepoint(pos):
-        if current_scene == "halloween":
-            open_list("halloween", 1)
-        if current_scene == "dia":
-            open_list("dia", 1)
-        if current_scene == "rosh":
-            open_list(rosh, 1)
+        if is_playlist_currently_open == False:
+            if current_scene == "halloween":
+                open_list("halloween", 1)
+            if current_scene == "dia":
+                open_list("dia", 1)
+            if current_scene == "rosh":
+                open_list("rosh", 1)
     if playlist_symbol_2.collidepoint(pos):
-        if current_scene == "halloween":
-            open_list("halloween", 2)
-        if current_scene == "dia":
-            open_list("dia", 2)
-        if current_scene == "rosh":
-            open_list("rosh", 2)
+        if is_playlist_currently_open == False:
+            if current_scene == "halloween":
+                open_list("halloween", 2)
+            if current_scene == "dia":
+                open_list("dia", 2)
+            if current_scene == "rosh":
+                open_list("rosh", 2)
     if playlist_symbol_3.collidepoint(pos):
-        if current_scene == "halloween":
-            open_list("halloween", 3)
-        if current_scene == "dia":
-            open_list("dia", 3)
-        if current_scene == "rosh":
-            open_list("rosh", 3)
+        if is_playlist_currently_open == False:
+            if current_scene == "halloween":
+                open_list("halloween", 3)
+            if current_scene == "dia":
+                open_list("dia", 3)
+            if current_scene == "rosh":
+                open_list("rosh", 3)
     if playlist_symbol_4.collidepoint(pos):
-        if current_scene == "halloween":
-            open_list("halloween", 4)
-        if current_scene == "dia":
-            open_list("dia", 4)
-        if current_scene == "rosh":
-            open_list("rosh", 4)
+        if is_playlist_currently_open == False:
+            if current_scene == "halloween":
+                open_list("halloween", 4)
+            if current_scene == "dia":
+                open_list("dia", 4)
+            if current_scene == "rosh":
+                open_list("rosh", 4)
     if playlist_symbol_5.collidepoint(pos):
-        if current_scene == "halloween":
-            open_list("halloween", 5)
-        if current_scene == "dia":
-            open_list("dia", 5)
-        if current_scene == "rosh":
-            open_list("rosh", 5)
+        if is_playlist_currently_open == False:
+            if current_scene == "halloween":
+                open_list("halloween", 5)
+            if current_scene == "dia":
+                open_list("dia", 5)
+            if current_scene == "rosh":
+                open_list("rosh", 5)
     if playlist_symbol_6.collidepoint(pos):
-        if current_scene == "halloween":
-            open_list("halloween", 6)
-        if current_scene == "dia":
-            open_list("dia", 6)
-        if current_scene == "rosh":
-            open_list("rosh", 6)
+        if is_playlist_currently_open == False:
+            if current_scene == "halloween":
+                open_list("halloween", 6)
+            if current_scene == "dia":
+                open_list("dia", 6)
+            if current_scene == "rosh":
+                open_list("rosh", 6)
     if playlist_symbol_7.collidepoint(pos):
-        if current_scene == "halloween":
-            open_list("halloween", 7)
-        if current_scene == "dia":
-            open_list("dia", 7)
-        if current_scene == "rosh":
-            open_list("rosh", 7)
+        if is_playlist_currently_open == False:
+            if current_scene == "halloween":
+                open_list("halloween", 7)
+            if current_scene == "dia":
+                open_list("dia", 7)
+            if current_scene == "rosh":
+                open_list("rosh", 7)
     if playlist_symbol_8.collidepoint(pos):
-        if current_scene == "halloween":
-            open_list("halloween", 8)
-        if current_scene == "dia":
-            open_list("dia", 8)
-        if current_scene == "rosh":
-            open_list("rosh", 8)
+        if is_playlist_currently_open == False:
+            if current_scene == "halloween":
+                open_list("halloween", 8)
+            if current_scene == "dia":
+                open_list("dia", 8)
+            if current_scene == "rosh":
+                open_list("rosh", 8)
     
 
 
