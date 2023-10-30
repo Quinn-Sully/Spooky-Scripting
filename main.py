@@ -29,6 +29,11 @@
 # use center.actorname = (x,y) to put actors where i want them
 
 # music works with .wav or .ogg files that are uncompressed
+# use function music.play_once(name) to play a song once
+# use function music.queue(name) to queue a song afterwards
+# music.pause() pauses whatever is playing
+# music.unpause() unpauses
+# music.is_playing() returns True if music is playing - use to prevent bugs
 
 # Keep this at the top
 import pgzrun
@@ -68,6 +73,9 @@ music_frame = Rect((100, 120), (600, 400))
 
 scroll_up = Actor("scrollarrowup", (700, 110))
 scroll_down = Actor("scrollarrowdown", (700, 530))
+
+pause_button = Actor("pause_button", midtop=(400, 520))
+play_button = Actor("play_button", midtop=(400, 520))
 
 playlist_symbol_1 = Actor("playlist_symbol", (105, 180))
 playlist_symbol_2 = Actor("playlist_symbol", (305, 180))
@@ -130,6 +138,8 @@ play_name_8 = "playlist eight"
 # This is for fullscreen
 once = False
 once_treeroom = False
+load_pause_once = False
+pause_or_play = "pause"
 playlist_currently_open = "none"
 scroll = 0
 playlist_that_is_currently_open = "none"
@@ -150,6 +160,8 @@ def draw():
     global treeside
     global playlist_currently_open
     global is_playlist_currently_open
+    global load_pause_once
+    global pause_or_play
     if not once:
         screen.surface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
         once = True
@@ -215,6 +227,13 @@ def draw():
             if treeside == 1:
                 dancing_tree_opposite.draw()
             back_arrow.draw()
+    if load_pause_once == True:
+        if pause_or_play == "pause":
+            pause_button.draw()
+        if pause_or_play == "play":
+            play_button.draw()
+
+#FIXME fix pause/play button functionality
 
 def draw_songs():
     global current_scene
@@ -1227,6 +1246,19 @@ def load_songs(ls_holiday, ls_playlist_num):
 
 #FIXME finish playlist open function based on halloween_music
 
+def play_a_song(frame_num):
+    global load_pause_once
+    global current_scene
+    global global_list_num
+    global scroll
+    load_pause_once = True
+    if current_scene == "halloween":
+        if is_playlist_currently_open == True:
+            if global_list_num == 1:
+                if scroll == 0: 
+                    if frame_num == 1:
+                        # music.play_once(halloween1play1song1)
+                        pass
 
 def halloween_music():
     global max_scroll
@@ -1500,6 +1532,7 @@ def on_mouse_down(pos):
     global scroll
     global current_scene
     global is_playlist_currently_open
+    global pause_or_play
     if halloween_pumpkin.collidepoint(pos):
         if current_scene == "setup":
             start_halloween()
@@ -1591,6 +1624,12 @@ def on_mouse_down(pos):
                 open_list("dia", 8)
             if current_scene == "rosh":
                 open_list("rosh", 8)
+    if halloween_frame_1.collidepoint(pos):
+        play_a_song(1)
+    if pause_button.collidepoint(pos):
+        # pause music function
+        pause_or_play = "play"
+        
     
 
 
