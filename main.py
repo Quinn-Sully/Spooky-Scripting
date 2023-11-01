@@ -120,7 +120,7 @@ halloween_frame_9 = Rect((100, 440), (600, 40))
 halloween_frame_10 = Rect((100, 480), (600, 40))
 
 
-#music template
+# music template
 # music_rect_template = Rect((100, 120+40x), (600, 40))
 # music_text_template = screen.draw.text("song name", (130, 130+40x), fontsize=30, color="black")
 music_rect = Rect((100, 120), (600, 40))
@@ -164,26 +164,49 @@ def draw():
     global pause_or_play
     if not once:
         screen.surface = pygame.display.set_mode((WIDTH, HEIGHT), pygame.FULLSCREEN)
+        pygame.init()
         once = True
     screen.clear()
     match current_scene:
         case "setup":
             screen.fill((252, 174, 28))
-            screen.draw.text("Which holiday are you interested in?", (100, 50), fontsize=50, color="brown",)
-            screen.draw.text("Halloween", (160, 270), fontsize=25, color="brown",)
+            screen.draw.text(
+                "Which holiday are you interested in?",
+                (100, 50),
+                fontsize=50,
+                color="brown",
+            )
+            screen.draw.text(
+                "Halloween",
+                (160, 270),
+                fontsize=25,
+                color="brown",
+            )
             halloween_pumpkin.draw()
             screen.draw.rect(square_hal_pumpkin, "brown")
-            screen.draw.text("Rosh Hashanah", (540, 270), fontsize=25, color="brown",)
+            screen.draw.text(
+                "Rosh Hashanah",
+                (540, 270),
+                fontsize=25,
+                color="brown",
+            )
             roshhashanah_bottle.draw()
             screen.draw.rect(square_rosh_bottle, "brown")
-            screen.draw.text("Dia De Los Muertos", (320, 270), fontsize=25, color="brown",)
+            screen.draw.text(
+                "Dia De Los Muertos",
+                (320, 270),
+                fontsize=25,
+                color="brown",
+            )
             diadelos_skull.draw()
             screen.draw.rect(square_dia_skull, "brown")
             fall_tree_background.draw()
         case "halloween":
             screen.fill((255, 144, 0))
             if not is_playlist_currently_open:
-                screen.draw.text("Halloween Music!", (250, 50), fontsize=50, color="yellow")
+                screen.draw.text(
+                    "Halloween Music!", (250, 50), fontsize=50, color="yellow"
+                )
                 back_arrow.draw()
                 draw_lists()
             if is_playlist_currently_open:
@@ -195,7 +218,9 @@ def draw():
         case "rosh":
             screen.fill((237, 223, 24))
             if not is_playlist_currently_open:
-                screen.draw.text("Rosh Hashanah Music!", (210, 50), fontsize=50, color="black")
+                screen.draw.text(
+                    "Rosh Hashanah Music!", (210, 50), fontsize=50, color="black"
+                )
                 back_arrow.draw()
                 draw_lists()
             if is_playlist_currently_open:
@@ -206,7 +231,9 @@ def draw():
         case "dia":
             screen.fill((163, 82, 255))
             if not is_playlist_currently_open:
-                screen.draw.text("Dia De Los Muertos Music!", (170, 50), fontsize=50, color="pink")
+                screen.draw.text(
+                    "Dia De Los Muertos Music!", (170, 50), fontsize=50, color="pink"
+                )
                 back_arrow.draw()
                 draw_lists()
             if is_playlist_currently_open:
@@ -233,7 +260,6 @@ def draw():
         if pause_or_play == "play":
             play_button.draw()
 
-#FIXME fix pause/play button functionality
 
 def draw_songs():
     global current_scene
@@ -250,9 +276,14 @@ def draw_songs():
     global song_name_9
     if current_scene == "halloween":
         max_scroll = 3
-        screen.draw.text(str(playlist_that_is_currently_open), midtop=(400, 50), fontsize=50, color="yellow")
+        screen.draw.text(
+            str(playlist_that_is_currently_open),
+            midtop=(400, 50),
+            fontsize=50,
+            color="yellow",
+        )
         screen.draw.rect(music_frame, "brown")
-            
+
         screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
         screen.draw.rect(halloween_frame_1, "brown")
 
@@ -285,10 +316,15 @@ def draw_songs():
 
         scroll_up.draw()
         scroll_down.draw()
-    
+
     if current_scene == "dia":
         max_scroll = 1
-        screen.draw.text(str(playlist_that_is_currently_open), midtop=(400, 50), fontsize=50, color="pink")
+        screen.draw.text(
+            str(playlist_that_is_currently_open),
+            midtop=(400, 50),
+            fontsize=50,
+            color="pink",
+        )
         screen.draw.rect(music_frame, "brown")
 
         screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
@@ -323,10 +359,15 @@ def draw_songs():
 
         scroll_up.draw()
         scroll_down.draw()
-    
+
     if current_scene == "rosh":
         max_scroll = 1
-        screen.draw.text(str(playlist_that_is_currently_open), midtop=(400, 50), fontsize=50, color="black")
+        screen.draw.text(
+            str(playlist_that_is_currently_open),
+            midtop=(400, 50),
+            fontsize=50,
+            color="black",
+        )
         screen.draw.rect(music_frame, "black")
 
         screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
@@ -361,23 +402,24 @@ def draw_songs():
 
         scroll_up.draw()
         scroll_down.draw()
-            
-        
+
 
 def start_halloween():
     global current_scene
     current_scene = "halloween"
 
+
 def start_rosh():
     global current_scene
     current_scene = "rosh"
+
 
 def start_dia():
     global current_scene
     current_scene = "dia"
 
 
-def draw_lists():    
+def draw_lists():
     playlist_symbol_1.draw()
     playlist_symbol_2.draw()
     playlist_symbol_3.draw()
@@ -386,7 +428,7 @@ def draw_lists():
     playlist_symbol_6.draw()
     playlist_symbol_7.draw()
     playlist_symbol_8.draw()
-    
+
     screen.draw.text(play_name_1, midtop=(105, 260), fontsize=30, color="black")
     screen.draw.text(play_name_2, midtop=(305, 260), fontsize=30, color="black")
     screen.draw.text(play_name_3, midtop=(505, 260), fontsize=30, color="black")
@@ -395,6 +437,7 @@ def draw_lists():
     screen.draw.text(play_name_6, midtop=(305, 460), fontsize=30, color="black")
     screen.draw.text(play_name_7, midtop=(505, 460), fontsize=30, color="black")
     screen.draw.text(play_name_8, midtop=(705, 460), fontsize=30, color="black")
+
 
 def name_lists():
     global play_name_1
@@ -405,7 +448,7 @@ def name_lists():
     global play_name_6
     global play_name_7
     global play_name_8
-    
+
     if current_scene == "halloween":
         play_name_1 = "Party"
         play_name_2 = "Spooky"
@@ -415,7 +458,7 @@ def name_lists():
         play_name_6 = "Jazz"
         play_name_7 = "Classics"
         play_name_8 = "For Kids"
-    
+
     if current_scene == "dia":
         play_name_1 = "Celebration"
         play_name_2 = "Coco"
@@ -503,7 +546,6 @@ def open_list(list_holiday, playlist_num):
             load_songs("halloween", 8)
         playlist_currently_open = "halloween"
 
-
     if list_holiday == "dia":
         global_list_holiday = "dia"
         if playlist_num == 1:
@@ -539,9 +581,7 @@ def open_list(list_holiday, playlist_num):
             global_list_num = 8
             load_songs("dia", 8)
         playlist_currently_open == "dia"
-    
-        
-    
+
     if list_holiday == "rosh":
         global_list_holiday = "rosh"
         if playlist_num == 1:
@@ -577,8 +617,8 @@ def open_list(list_holiday, playlist_num):
             global_list_num = 8
             load_songs("rosh", 8)
         playlist_currently_open == "rosh"
-    
-        
+
+
 # figures out song name based on holiday, playlist and scroll
 def load_songs(ls_holiday, ls_playlist_num):
     global song_name_1
@@ -627,7 +667,7 @@ def load_songs(ls_holiday, ls_playlist_num):
                 song_name_8 = "halloween, list_1, sn28"
                 song_name_9 = "halloween, list_1, sn29"
                 song_name_10 = "halloween, list_1, sn30"
-        
+
         if ls_playlist_num == 2:
             if scroll == 0:
                 song_name_1 = "halloween, list_2, sn1"
@@ -662,7 +702,7 @@ def load_songs(ls_holiday, ls_playlist_num):
                 song_name_8 = "halloween, list_2, sn28"
                 song_name_9 = "halloween, list_2, sn29"
                 song_name_10 = "halloween, list_2, sn30"
-        
+
         if ls_playlist_num == 3:
             if scroll == 0:
                 song_name_1 = "halloween, list_3, sn1"
@@ -697,7 +737,7 @@ def load_songs(ls_holiday, ls_playlist_num):
                 song_name_8 = "halloween, list_3, sn28"
                 song_name_9 = "halloween, list_3, sn29"
                 song_name_10 = "halloween, list_3, sn30"
-        
+
         if ls_playlist_num == 4:
             if scroll == 0:
                 song_name_1 = "halloween, list_4, sn1"
@@ -732,7 +772,7 @@ def load_songs(ls_holiday, ls_playlist_num):
                 song_name_8 = "halloween, list_4, sn28"
                 song_name_9 = "halloween, list_4, sn29"
                 song_name_10 = "halloween, list_4, sn30"
-        
+
         if ls_playlist_num == 5:
             if scroll == 0:
                 song_name_1 = "halloween, list_5, sn1"
@@ -767,7 +807,7 @@ def load_songs(ls_holiday, ls_playlist_num):
                 song_name_8 = "halloween, list_5, sn28"
                 song_name_9 = "halloween, list_5, sn29"
                 song_name_10 = "halloween, list_5, sn30"
-    
+
         if ls_playlist_num == 6:
             if scroll == 0:
                 song_name_1 = "halloween, list_6, sn1"
@@ -802,7 +842,7 @@ def load_songs(ls_holiday, ls_playlist_num):
                 song_name_8 = "halloween, list_6, sn28"
                 song_name_9 = "halloween, list_6, sn29"
                 song_name_10 = "halloween, list_6, sn30"
-        
+
         if ls_playlist_num == 7:
             if scroll == 0:
                 song_name_1 = "halloween, list_7, sn1"
@@ -837,7 +877,7 @@ def load_songs(ls_holiday, ls_playlist_num):
                 song_name_8 = "halloween, list_7, sn28"
                 song_name_9 = "halloween, list_7, sn29"
                 song_name_10 = "halloween, list_7, sn30"
-        
+
         if ls_playlist_num == 8:
             if scroll == 0:
                 song_name_1 = "halloween, list_8, sn1"
@@ -1242,9 +1282,7 @@ def load_songs(ls_holiday, ls_playlist_num):
                 song_name_8 = "rosh, list_8, sn18"
                 song_name_9 = "rosh, list_8, sn19"
                 song_name_10 = "rosh, list_8, sn20"
-        
 
-#FIXME finish playlist open function based on halloween_music
 
 def play_a_song(frame_num):
     global load_pause_once
@@ -1255,259 +1293,20 @@ def play_a_song(frame_num):
     if current_scene == "halloween":
         if is_playlist_currently_open == True:
             if global_list_num == 1:
-                if scroll == 0: 
+                if scroll == 0:
                     if frame_num == 1:
-                        # music.play_once(halloween1play1song1)
+                        music.play_once("halloween1play1song1")
                         pass
 
-def halloween_music():
-    global max_scroll
-    global scroll
-    max_scroll = 3
-    scroll_down.draw()
-    scroll_up.draw()
-    if scroll == 0:
-        song_name_1 = "sn1"
-        song_name_2 = "sn2"
-        song_name_3 = "sn3"
-        song_name_4 = "sn4"
-        song_name_5 = "sn5"
-        song_name_6 = "sn6"
-        song_name_7 = "sn7"
-        song_name_8 = "sn8"
-        song_name_9 = "sn9"
-        song_name_10 = "sn10"
 
-    if scroll == 1:
-        song_name_1 = "sn11"
-        song_name_2 = "sn12"
-        song_name_3 = "sn13"
-        song_name_4 = "sn14"
-        song_name_5 = "sn15"
-        song_name_6 = "sn16"
-        song_name_7 = "sn17"
-        song_name_8 = "sn18"
-        song_name_9 = "sn19"
-        song_name_10 = "sn20"
-    
-    if scroll ==  2:
-        song_name_1 = "sn21"
-        song_name_2 = "sn22"
-        song_name_3 = "sn23"
-        song_name_4 = "sn24"
-        song_name_5 = "sn25"
-        song_name_6 = "sn26"
-        song_name_7 = "sn27"
-        song_name_8 = "sn28"
-        song_name_9 = "sn29"
-        song_name_10 = "sn30"
-   
-    if scroll ==  3:
-        song_name_1 = "sn31"
-        song_name_2 = "sn32"
-        song_name_3 = "sn33"
-        song_name_4 = "sn34"
-        song_name_5 = "sn35"
-        song_name_6 = "sn36"
-        song_name_7 = "sn37"
-        song_name_8 = "sn38"
-        song_name_9 = "sn39"
-        song_name_10 = "sn40"
-
-    screen.draw.rect(music_frame, "brown")
-    halloween_frame_1 = Rect((100, 120), (600, 40))
-    halloween_frame_2 = Rect((100, 160), (600, 40))
-    halloween_frame_3 = Rect((100, 200), (600, 40))
-    halloween_frame_4 = Rect((100, 240), (600, 40))
-    halloween_frame_5 = Rect((100, 280), (600, 40))
-    halloween_frame_6 = Rect((100, 320), (600, 40))
-    halloween_frame_7 = Rect((100, 360), (600, 40))
-    halloween_frame_8 = Rect((100, 400), (600, 40))
-    halloween_frame_9 = Rect((100, 440), (600, 40))
-    halloween_frame_10 = Rect((100, 480), (600, 40))
-    
-    screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_1, "brown")
-
-    screen.draw.text(song_name_2, (130, 170), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_2, "brown")
-
-    screen.draw.text(song_name_3, (130, 210), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_3, "brown")
-
-    screen.draw.text(song_name_4, (130, 250), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_4, "brown")
-
-    screen.draw.text(song_name_5, (130, 290), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_5, "brown")
-
-    screen.draw.text(song_name_6, (130, 330), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_6, "brown")
-
-    screen.draw.text(song_name_7, (130, 370), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_7, "brown")
-
-    screen.draw.text(song_name_8, (130, 410), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_8, "brown")
-
-    screen.draw.text(song_name_9, (130, 450), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_9, "brown")
-
-    screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
-    screen.draw.rect(halloween_frame_10, "brown")
+def pause_song():
+    if music.is_playing():
+        music.pause()
 
 
-def rosh_music():
-    global scroll
-    global max_scroll
-    max_scroll = 1
-    scroll_down.draw()
-    scroll_up.draw()
-    if scroll == 0:
-        song_name_1 = "rsn1"
-        song_name_2 = "rsn2"
-        song_name_3 = "rsn3"
-        song_name_4 = "rsn4"
-        song_name_5 = "rsn5"
-        song_name_6 = "rsn6"
-        song_name_7 = "rsn7"
-        song_name_8 = "rsn8"
-        song_name_9 = "rsn9"
-        song_name_10 = "rsn10"
-
-    if scroll == 1:
-        song_name_1 = "rsn11"
-        song_name_2 = "rsn12"
-        song_name_3 = "rsn13"
-        song_name_4 = "rsn14"
-        song_name_5 = "rsn15"
-        song_name_6 = "rsn16"
-        song_name_7 = "rsn17"
-        song_name_8 = "rsn18"
-        song_name_9 = "rsn19"
-        song_name_10 = "rsn20"
-
-
-
-    screen.draw.rect(music_frame, "brown")
-    rosh_frame_1 = Rect((100, 120), (600, 40))
-    rosh_frame_2 = Rect((100, 160), (600, 40))
-    rosh_frame_3 = Rect((100, 200), (600, 40))
-    rosh_frame_4 = Rect((100, 240), (600, 40))
-    rosh_frame_5 = Rect((100, 280), (600, 40))
-    rosh_frame_6 = Rect((100, 320), (600, 40))
-    rosh_frame_7 = Rect((100, 360), (600, 40))
-    rosh_frame_8 = Rect((100, 400), (600, 40))
-    rosh_frame_9 = Rect((100, 440), (600, 40))
-    rosh_frame_10 = Rect((100, 480), (600, 40))
-    
-    screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_1, "brown")
-
-    screen.draw.text(song_name_2, (130, 170), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_2, "brown")
-
-    screen.draw.text(song_name_3, (130, 210), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_3, "brown")
-
-    screen.draw.text(song_name_4, (130, 250), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_4, "brown")
-
-    screen.draw.text(song_name_5, (130, 290), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_5, "brown")
-
-    screen.draw.text(song_name_6, (130, 330), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_6, "brown")
-
-    screen.draw.text(song_name_7, (130, 370), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_7, "brown")
-
-    screen.draw.text(song_name_8, (130, 410), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_8, "brown")
-
-    screen.draw.text(song_name_9, (130, 450), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_9, "brown")
-
-    screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
-    screen.draw.rect(rosh_frame_10, "brown")
-
-
-def dia_music():
-    global scroll
-    global max_scroll
-    max_scroll = 1
-    scroll_down.draw()
-    scroll_up.draw()
-    if scroll == 0:
-        song_name_1 = "dsn1"
-        song_name_2 = "dsn2"
-        song_name_3 = "dsn3"
-        song_name_4 = "dsn4"
-        song_name_5 = "dsn5"
-        song_name_6 = "dsn6"
-        song_name_7 = "dsn7"
-        song_name_8 = "dsn8"
-        song_name_9 = "dsn9"
-        song_name_10 = "dsn10"
-
-    if scroll == 1:
-        song_name_1 = "dsn11"
-        song_name_2 = "dsn12"
-        song_name_3 = "dsn13"
-        song_name_4 = "dsn14"
-        song_name_5 = "dsn15"
-        song_name_6 = "dsn16"
-        song_name_7 = "dsn17"
-        song_name_8 = "dsn18"
-        song_name_9 = "dsn19"
-        song_name_10 = "dsn20"
-
-
-
-    screen.draw.rect(music_frame, "yellow")
-    dia_frame_1 = Rect((100, 120), (600, 40))
-    dia_frame_2 = Rect((100, 160), (600, 40))
-    dia_frame_3 = Rect((100, 200), (600, 40))
-    dia_frame_4 = Rect((100, 240), (600, 40))
-    dia_frame_5 = Rect((100, 280), (600, 40))
-    dia_frame_6 = Rect((100, 320), (600, 40))
-    dia_frame_7 = Rect((100, 360), (600, 40))
-    dia_frame_8 = Rect((100, 400), (600, 40))
-    dia_frame_9 = Rect((100, 440), (600, 40))
-    dia_frame_10 = Rect((100, 480), (600, 40))
-    
-    screen.draw.text(song_name_1, (130, 130), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_1, "yellow")
-
-    screen.draw.text(song_name_2, (130, 170), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_2, "yellow")
-
-    screen.draw.text(song_name_3, (130, 210), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_3, "yellow")
-
-    screen.draw.text(song_name_4, (130, 250), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_4, "yellow")
-
-    screen.draw.text(song_name_5, (130, 290), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_5, "yellow")
-
-    screen.draw.text(song_name_6, (130, 330), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_6, "yellow")
-
-    screen.draw.text(song_name_7, (130, 370), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_7, "yellow")
-
-    screen.draw.text(song_name_8, (130, 410), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_8, "yellow")
-
-    screen.draw.text(song_name_9, (130, 450), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_9, "yellow")
-
-    screen.draw.text(song_name_10, (130, 490), fontsize=30, color="black")
-    screen.draw.rect(dia_frame_10, "yellow")
-
-
-#FIXME include scroll arrows and scrolling functionality next        
+def unpause_song():
+    if not music.is_playing():
+        music.unpause()
 
 
 def enter_tree_room():
@@ -1553,11 +1352,19 @@ def on_mouse_down(pos):
             if is_playlist_currently_open:
                 is_playlist_currently_open = False
     if scroll_down.collidepoint(pos):
-        if current_scene == "halloween" or current_scene == "rosh" or current_scene == "dia":
+        if (
+            current_scene == "halloween"
+            or current_scene == "rosh"
+            or current_scene == "dia"
+        ):
             if scroll < max_scroll:
                 scroll = scroll + 1
     if scroll_up.collidepoint(pos):
-        if current_scene == "halloween" or current_scene == "rosh" or current_scene == "dia":
+        if (
+            current_scene == "halloween"
+            or current_scene == "rosh"
+            or current_scene == "dia"
+        ):
             if scroll > 0:
                 scroll = scroll - 1
     if playlist_symbol_1.collidepoint(pos):
@@ -1626,11 +1433,16 @@ def on_mouse_down(pos):
                 open_list("rosh", 8)
     if halloween_frame_1.collidepoint(pos):
         play_a_song(1)
-    if pause_button.collidepoint(pos):
-        # pause music function
+    if pause_or_play == "pause" and pause_button.collidepoint(pos):
+        print("pause button collide")
         pause_or_play = "play"
-        
-    
+        print(pause_or_play)
+        # pause music function
+    elif pause_or_play == "play" and play_button.collidepoint(pos):
+        print("play button collide")
+        pause_or_play = "pause"
+        print(pause_or_play)
+        # unpause music function
 
 
 # this function is called every frame
