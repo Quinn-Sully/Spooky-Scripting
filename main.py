@@ -146,6 +146,7 @@ playlist_that_is_currently_open = "none"
 treeside = 0
 global_list_holiday = "none"
 global_list_num = 0
+waiting_on_escape = False
 
 current_scene = "setup"
 
@@ -237,7 +238,9 @@ def draw():
                 back_arrow.draw()
                 draw_lists()
             if is_playlist_currently_open:
+                print("dia list is open")
                 if playlist_currently_open == "dia":
+                    print("playlist_currently_open is dia")
                     back_arrow.draw()
                     open_list("dia", global_list_num)
                     draw_songs()
@@ -580,7 +583,7 @@ def open_list(list_holiday, playlist_num):
             playlist_that_is_currently_open = "This playlist doesn't exist yet"
             global_list_num = 8
             load_songs("dia", 8)
-        playlist_currently_open == "dia"
+        playlist_currently_open = "dia"
 
     if list_holiday == "rosh":
         global_list_holiday = "rosh"
@@ -616,7 +619,7 @@ def open_list(list_holiday, playlist_num):
             playlist_that_is_currently_open = "This Playlist Doesn't Exist Yet"
             global_list_num = 8
             load_songs("rosh", 8)
-        playlist_currently_open == "rosh"
+        playlist_currently_open = "rosh"
 
 
 # figures out song name based on holiday, playlist and scroll
@@ -1300,12 +1303,12 @@ def play_a_song(frame_num):
 
 
 def pause_song():
-    if music.is_playing():
+    if pause_or_play == "play":
         music.pause()
 
 
 def unpause_song():
-    if not music.is_playing():
+    if pause_or_play == "pause":
         music.unpause()
 
 
@@ -1313,6 +1316,7 @@ def enter_tree_room():
     global current_scene
     current_scene = "tree_room"
     # music.play("treeroom")
+    # FIXME make this let it grow chorus loop
 
 
 def fliptree():
@@ -1434,21 +1438,28 @@ def on_mouse_down(pos):
     if halloween_frame_1.collidepoint(pos):
         play_a_song(1)
     if pause_or_play == "pause" and pause_button.collidepoint(pos):
-        print("pause button collide")
         pause_or_play = "play"
-        print(pause_or_play)
-        # pause music function
+        pause_song()
     elif pause_or_play == "play" and play_button.collidepoint(pos):
-        print("play button collide")
         pause_or_play = "pause"
-        print(pause_or_play)
-        # unpause music function
+        unpause_song()
 
 
 # this function is called every frame
 def update():
+    global current_scene
+    global is_playlist_currently_open
+    global waiting_on_escape
     name_lists()
-    pass
+    if keyboard[keys.ESCAPE]:
+        waiting_on_escape = True
+    if not keyboard[keys.ESCAPE] and waiting_on_escape:
+        waiting_on_escape = False
+        if current_scene in ["tree_room", "halloween", "rosh", "dia"]:
+            if is_playlist_currently_open == False:
+                current_scene = "setup"
+            if is_playlist_currently_open:
+                is_playlist_currently_open = False
 
 
 # This has to be the last line in the program
