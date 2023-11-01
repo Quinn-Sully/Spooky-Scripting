@@ -147,6 +147,7 @@ treeside = 0
 global_list_holiday = "none"
 global_list_num = 0
 waiting_on_escape = False
+waiting_on_mouse = False
 
 current_scene = "setup"
 
@@ -1330,12 +1331,15 @@ def fliptree():
 
 
 # this function deals with whenever the mouse is clicked
+# FIXME make sure playlists can't be opened right after the scene is changed, use update function
+# with smth similar to what is in the update function already
 def on_mouse_down(pos):
     global max_scroll
     global scroll
     global current_scene
     global is_playlist_currently_open
     global pause_or_play
+    global waiting_on_mouse
     if halloween_pumpkin.collidepoint(pos):
         if current_scene == "setup":
             start_halloween()
