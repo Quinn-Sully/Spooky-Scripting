@@ -640,8 +640,8 @@ def load_songs(ls_holiday, ls_playlist_num):
         if ls_playlist_num == 1:
             if scroll == 0:
                 song_name_1 = "Ghostbusters Theme"
-                song_name_2 = "halloween, list_1, sn2"
-                song_name_3 = "halloween, list_1, sn3"
+                song_name_2 = "Thriller"
+                song_name_3 = "This is Halloween"
                 song_name_4 = "halloween, list_1, sn4"
                 song_name_5 = "halloween, list_1, sn5"
                 song_name_6 = "halloween, list_1, sn6"
@@ -1299,18 +1299,26 @@ def play_a_song(frame_num):
             if global_list_num == 1:
                 if scroll == 0:
                     if frame_num == 1:
-                        music.play_once("halloween1play1song1")
-                        pass
+                        print("halloween song 1 is playing")
+                        # music.play_once("halloween1play1song1")
+                    if frame_num == 2:
+                        # music.play_once("halloween1play1song2")
+                        print("halloween song 2 is playing")
+                    if frame_num == 3:
+                        # music.play_once("halloween1play1song3")
+                        print("halloween song 3 is playing")
 
 
 def pause_song():
     if pause_or_play == "play":
         music.pause()
+        print("music is paused")
 
 
 def unpause_song():
     if pause_or_play == "pause":
         music.unpause()
+        print("music is unpaused")
 
 
 def enter_tree_room():
@@ -1447,6 +1455,10 @@ def on_mouse_down(pos):
     elif pause_or_play == "play" and play_button.collidepoint(pos):
         pause_or_play = "pause"
         unpause_song()
+    if halloween_frame_2.collidepoint(pos):
+        play_a_song(2)
+    if halloween_frame_3.collidepoint(pos):
+        play_a_song(3)
 
 
 # this function is called every frame
