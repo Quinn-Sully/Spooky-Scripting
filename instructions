@@ -1,0 +1,10 @@
+To run this project:
+
+Run the code by going to the "run and debug" menu on the left side of the github codespaces tab and clicking "run and debug" while in the "main.py" tab.
+Change tab to the tab titled "noVNC."
+If you're met with a "connect" button, click it and type "vscode" as the password.
+You're all set.
+
+If you ever want to restart the code, you can come back to the codespaces tab and click the green restart button at the top of the screen.
+
+If you ever accidentally close any tabs, you can use the hotkey "ctrl + shift + t" to bring it back.

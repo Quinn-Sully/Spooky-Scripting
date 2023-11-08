@@ -6,7 +6,7 @@
 # run the program and go to ports
 # open the link that starts with desktop under forwarded address
 # password is "vscode"
-# enjoy
+# enjoy, but keep in mind that audio won't work this way
 
 # set a variable as a corrosponding image by typing alien = Actor('alien')
 # to set a position for the variable, use alien.pos = 30, 40
@@ -127,7 +127,7 @@ halloween_frame_10 = Rect((100, 480), (600, 40))
 music_rect = Rect((100, 120), (600, 40))
 another_music_rect = Rect((100, 160), (600, 40))
 
-#initial playlist names for debugging proper naming
+# initial playlist names for debugging proper naming
 play_name_1 = "playlist one"
 play_name_2 = "playlist two"
 play_name_3 = "playlist three"
@@ -146,10 +146,8 @@ playlist_currently_open = "none"
 scroll = 0
 playlist_that_is_currently_open = "none"
 treeside = 0
-global_list_holiday = "none"
 global_list_num = 0
 waiting_on_escape = False
-waiting_on_mouse = False
 current_scene = "setup"
 is_playlist_currently_open = False
 
@@ -263,6 +261,7 @@ def draw():
             pause_button.draw()
         if pause_or_play == "play":
             play_button.draw()
+
 
 # This function draws the song names and rectangles which hold the song names
 # when a playlist is opened.
@@ -408,7 +407,8 @@ def draw_songs():
         scroll_up.draw()
         scroll_down.draw()
 
-# This function and the two below just change the scene 
+
+# This function and the two below just change the scene
 # (kind of unnecessary but why fix what ain't broke?)
 def start_halloween():
     global current_scene
@@ -423,6 +423,7 @@ def start_rosh():
 def start_dia():
     global current_scene
     current_scene = "dia"
+
 
 # This function draws the playlist symbols with the proper names depending on the holiday
 def draw_lists():
@@ -443,6 +444,7 @@ def draw_lists():
     screen.draw.text(play_name_6, midtop=(305, 460), fontsize=30, color="black")
     screen.draw.text(play_name_7, midtop=(505, 460), fontsize=30, color="black")
     screen.draw.text(play_name_8, midtop=(705, 460), fontsize=30, color="black")
+
 
 # this function names the lists depending on the holiday open. It's called every frame under update()
 def name_lists():
@@ -485,6 +487,7 @@ def name_lists():
         play_name_7 = "rosh_7"
         play_name_8 = "rosh_8"
 
+
 # This function defines what list is open and changes the songnames
 # to corrospond with what list is being opened.
 def open_list(list_holiday, playlist_num):
@@ -514,11 +517,9 @@ def open_list(list_holiday, playlist_num):
     global dia_frame_10
     global is_playlist_currently_open
     global playlist_that_is_currently_open
-    global global_list_holiday
     global global_list_num
     is_playlist_currently_open = True
     if list_holiday == "halloween":
-        global_list_holiday = "halloween"
         if playlist_num == 1:
             playlist_that_is_currently_open = "Party"
             global_list_num = 1
@@ -554,7 +555,6 @@ def open_list(list_holiday, playlist_num):
         playlist_currently_open = "halloween"
 
     if list_holiday == "dia":
-        global_list_holiday = "dia"
         if playlist_num == 1:
             playlist_that_is_currently_open = "Celebration"
             global_list_num = 1
@@ -590,7 +590,6 @@ def open_list(list_holiday, playlist_num):
         playlist_currently_open = "dia"
 
     if list_holiday == "rosh":
-        global_list_holiday = "rosh"
         if playlist_num == 1:
             playlist_that_is_currently_open = "Celebration"
             global_list_num = 1
@@ -1290,6 +1289,7 @@ def load_songs(ls_holiday, ls_playlist_num):
                 song_name_9 = "rosh, list_8, sn19"
                 song_name_10 = "rosh, list_8, sn20"
 
+
 # This function starts playing songs based on which music frame is clicked.
 # It distinguishes between scenes and scrolls too.
 def play_a_song(frame_num):
@@ -1312,11 +1312,13 @@ def play_a_song(frame_num):
                         music.play_once("halloween1play1song3")
                         # print("halloween song 3 is playing")
 
+
 # This function pauses songs if a song is playing
 def pause_song():
     if pause_or_play == "play":
         music.pause()
         print("music is paused")
+
 
 # This function unpauses songs if a song isn't playing
 def unpause_song():
@@ -1324,12 +1326,14 @@ def unpause_song():
         music.unpause()
         print("music is unpaused")
 
+
 # This functin changes the scene to the tree room
 def enter_tree_room():
     global current_scene
     current_scene = "tree_room"
     # music.play("treeroom")
     # FIXME make this let it grow chorus loop
+
 
 # This function flips the tree image horizontally.
 def fliptree():
@@ -1345,13 +1349,12 @@ def fliptree():
 # this function deals with whenever the mouse is clicked
 # FIXME make sure playlists can't be opened right after the scene is changed, use update function
 # with smth similar to what is in the update function already
-def on_mouse_down(pos):
+def on_mouse_up(pos):
     global max_scroll
     global scroll
     global current_scene
     global is_playlist_currently_open
     global pause_or_play
-    global waiting_on_mouse
     if halloween_pumpkin.collidepoint(pos):
         if current_scene == "setup":
             start_halloween()
